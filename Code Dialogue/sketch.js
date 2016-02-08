@@ -1,6 +1,6 @@
 var gameover, unpaused, user, treeImg;
 
-var leo, tree, oldMan, bus, mop; //Sprites
+var leo, tree, oldMan, bus; //Sprites
 
 var objects; //group of object Sprites
 
@@ -9,8 +9,6 @@ var treeLife= 200;
 var level = 1;
 
 var secretScore;
-
-var collision = false;
 
 
 function preLoad(){
@@ -46,12 +44,11 @@ function setup(){
  
 function draw(){
 
-    if(gameover && keyWentDown(ENTER)){
+    if(gameover && keyWentDown(ENTER))
        
-        newGame();}
+        newGame();
     
-    //collisionCheck();
-
+    
     if(!gameover) {
         
         keepInBorders();  //constraining leo
@@ -61,9 +58,29 @@ function draw(){
         
         bg1();
         
-        //leo.changeAnimation("idle");
+        leo.changeAnimation("idle");
 
-         
+        
+        if (keyDown(UP_ARROW) && unpaused){//user steer up
+            text(leo.position.y, 300, 300);
+            leo.position.y = leo.position.y-2;
+            treeLife-= 0.2;
+            
+            if(keyWentDown(SHIFT)){
+                leo.velocity.y = -3;
+                if(keyWentDown(80)){
+                    leo.velocity.y = 0;
+                
+                } //if
+            } //if
+
+        } //if
+        
+        if (keyDown(DOWN_ARROW) && unpaused){//user steer down
+                   
+            leo.position.y = leo.position.y+2;    
+
+        }
     
         if (keyDown(LEFT_ARROW) && unpaused){//user steer left
             leo.position.x = leo.position.x-2;    
@@ -71,9 +88,9 @@ function draw(){
         }
         
         if (keyDown(RIGHT_ARROW) && unpaused){//user steer right
-            //leo.changeAnimation("moveRight");
+            leo.changeAnimation("moveRight");
 
-            leo.position.x = leo.position.x+2;    
+             leo.position.x = leo.position.x+2;    
 
         }
         
@@ -91,18 +108,38 @@ function draw(){
         }
         
         
-     if(leo.overlap(tree)){
-      collision = true;
-      text("Watering", 350, 200);
-      //remove(tree);
-    }
+        /*if(keyWentDown(80)){   //PAUSE
+            text("PAUSE", windowWidth/2, windowHeight/2);
+            gameover = true;
+            if(keyWentDown(83)){
+                text(gameover, windowWidth/2, windowHeight/2);
+                gameover = false;
+    
+        }
+            
+        }*/
         
-    if(leo.overlap(mop)){
-      collision = true;
-      text("Washing Floor", width-300, 200);
-      //remove(mop);
+        /*if(keyWentDown(80)){
+        var selected = 0;
+        $('#id').dialog({
+  buttons: {
+    "First": function() {
+      selected = 1;
+    },
+    "Second": function() {
+      selected = 2;
+    },
+    "Third": function() {
+      selected = 3;
+    },
+    "Fourth": function() {
+      selected = 4;
     }
+  }
+});
+        }*/
         
+    //camera.position.y=user.position.y-190;//follow the user
         
     camera.off();//background image is still
     camera.on();
@@ -136,23 +173,23 @@ function newGame() {//resetting values for new game
     
     leo=createSprite(width/2,500,50,50); //leo sprite
     
-    //leo.addAnimation("idle", "data/png/Idle__000.png", "data/png/Idle__009.png");  //leo idle animation
+    leo.addAnimation("idle", "data/png/Idle__000.png", "data/png/Idle__009.png");  //leo idle animation
 
-    //leo.addAnimation("moveRight", "data/png/Run__000.png", "data/png/Run__009.png");  //leo moving right animation
+    leo.addAnimation("moveRight", "data/png/Run__000.png", "data/png/Run__009.png");  //leo moving right animation
    
     
-    tree=createSprite(width/12,400,300,250); //tree sprite
-    //tree.addAnimation("tree", "data/tree.png");  //tree image
-    
-    mop=createSprite(width-width/12,400,300,250); //mop sprite
-
+    tree=createSprite(width/12,400,50,50); //tree sprite
+    tree.addAnimation("tree", "data/tree.png");  //tree image
     
     
     drawSprites();
 }
 
 
-
+function feedTree(){
+    //if sprites collide && f pressed -  change leo animation and change health of tree
+    
+}
 
 function keepInBorders(){  //constraining leo
     
@@ -164,12 +201,10 @@ function keepInBorders(){  //constraining leo
     leo.position.x = windowWidth;
   if(leo.position.y > windowHeight)
     leo.position.y = windowHeight;  
-    
 
 }
     
-
-
+    
 
 
 
