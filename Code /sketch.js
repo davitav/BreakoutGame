@@ -1,16 +1,20 @@
-var gameover, unpaused, user, treeImg;
+var gameover, unpaused, user, treeImg;  //variables for gameplay
 
 var leo, tree, oldMan, bus, mop; //Sprites
 
 var objects; //group of object Sprites
 
-var treeLife= 200;
+var life= 100;  //leo's indicator
 
-var level = 1;
+var level = 1;  //level variable
+ 
+//var secretScore;
 
-var secretScore;
+var collision = false;  //collision variable 
 
-var collision = false;
+var currentGoodValue = 0;  //current good image shown
+
+var currentBadValue = 0;  //current bad image shown
 
 
 function preLoad(){
@@ -45,24 +49,25 @@ function setup(){
 }//setup
  
 function draw(){
+    
 
     if(gameover && keyWentDown(ENTER)){
        
         newGame();}
     
     //collisionCheck();
+    
 
     if(!gameover) {
         
         keepInBorders();  //constraining leo
         
+        
         fill(20, 100, 200);   
         rect(400, 300, treeLife, 200);  //life of the tree
         
         bg1();
-        
-        //leo.changeAnimation("idle");
-
+        lifeDisplay();
          
     
         if (keyDown(LEFT_ARROW) && unpaused){//user steer left
@@ -94,13 +99,19 @@ function draw(){
      if(leo.overlap(tree)){
       collision = true;
       text("Watering", 350, 200);
+      life = life+30;
       //remove(tree);
     }
         
     if(leo.overlap(mop)){
       collision = true;
       text("Washing Floor", width-300, 200);
-      //remove(mop);
+        if(collision == true){
+        life = life - 30;
+        console.log("About to remove");
+        mop.remove();
+        console.log("Removed");
+        }
     }
         
         
@@ -117,6 +128,7 @@ function draw(){
 
 function bg1(){  //1st world
     background(0);
+    rect(0, 525, width, height-525);
 }
 
 function bg2(){  //2nd world
@@ -167,11 +179,23 @@ function keepInBorders(){  //constraining leo
     
 
 }
+
+function lifeDisplay(){
+    
+    fill(60);
+    rect(width/2-100, 30, 200, 40);
+    fill(0, 230, 70);
+    rect(width/2-100, 30, life, 40);
+
+}
     
 
+function windowResized() {
+//  resizeCanvas(windowWidth, windowHeight);
+}
 
-
-
-
-
-    
+//change level, with 2 parameters - what level you're on and, what choice was made and
+//where you wanna go and all the changes you wanna make
+//array with all the choices
+//array for good and for bad
+//give me a good object of value 3
