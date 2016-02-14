@@ -1,6 +1,7 @@
 var gameover, unpaused, user, treeImg;  //variables for gameplay
 
 var leo, tree, oldMan, bus, mop; //Sprites
+var crack; 
 
 var objects; //group of object Sprites
 
@@ -12,15 +13,28 @@ var level = 1;  //level variable
 
 var collision = false;  //collision variable 
 
-var currentGoodValue = 0;  //current good image shown
+var cGValue = 0;  //current good value to display image
 
-var currentBadValue = 0;  //current bad image shown
+var cBValue = 0;  //current bad value to display 
+
+var itemsWorld1 = [];  //arrays to store objects from world 1 and 2
+var itemsWorld2 = [];
+
+var storyBoard = [];
+var storyimg1, storyimg2;
+
+var bgInside;
 
 
 function preLoad(){
     
     treeImg = loadImage("data/tree.png");
     leoImg = loadImage("data/tree.png");
+    
+    storyboard = [storyimg1, storyimg2];
+    
+    bgInside = loadImage("data/bgInside.png");
+
 }
 
 
@@ -41,7 +55,7 @@ function setup(){
     text("Press Enter to start", windowWidth/2, windowHeight/2);
     text("Press R to restart and P to Pause", windowWidth/2, windowHeight/2+50);
 
-        
+    itemsWorld1 = [mop, crack];  
     //camera.position.x=width/2;
 
    
@@ -62,59 +76,14 @@ function draw(){
         
         keepInBorders();  //constraining leo
         
-        
-        fill(20, 100, 200);   
-        rect(400, 300, treeLife, 200);  //life of the tree
-        
         bg1();
-        lifeDisplay();
-         
+        lifeDisplay();  //displaying Leo's mood
+        
+        updatePosition(); //moving Leo
+        
+        collide(tree, mop);  //collide function
+          
     
-        if (keyDown(LEFT_ARROW) && unpaused){//user steer left
-            leo.position.x = leo.position.x-2;    
-
-        }
-        
-        if (keyDown(RIGHT_ARROW) && unpaused){//user steer right
-            //leo.changeAnimation("moveRight");
-
-            leo.position.x = leo.position.x+2;    
-
-        }
-        
-        
-        if(keyWentDown(82)){
-            if (confirm('Are you sure you want to restart?')) {
-            //restart
-                leo.remove();
-                tree.remove();
-                newGame()
-                } else {
-            // keep going!
-                }     
-            
-        }
-        
-        
-     if(leo.overlap(tree)){
-      collision = true;
-      text("Watering", 350, 200);
-      life = life+30;
-      //remove(tree);
-    }
-        
-    if(leo.overlap(mop)){
-      collision = true;
-      text("Washing Floor", width-300, 200);
-        if(collision == true){
-        life = life - 30;
-        console.log("About to remove");
-        mop.remove();
-        console.log("Removed");
-        }
-    }
-        
-        
     camera.off();//background image is still
     camera.on();
     
@@ -128,11 +97,14 @@ function draw(){
 
 function bg1(){  //1st world
     background(0);
+    //image(bgInside, 0, 0);
+
     rect(0, 525, width, height-525);
 }
 
 function bg2(){  //2nd world
     //bg image
+    background(255);
 }
     
 function newGame() {//resetting values for new game
@@ -144,7 +116,7 @@ function newGame() {//resetting values for new game
 
     unpaused=true;
     
-    treeLife = 100;
+    life = 100;
     
     leo=createSprite(width/2,500,50,50); //leo sprite
     
@@ -157,12 +129,62 @@ function newGame() {//resetting values for new game
     //tree.addAnimation("tree", "data/tree.png");  //tree image
     
     mop=createSprite(width-width/12,400,300,250); //mop sprite
-
-    
-    
+ 
     drawSprites();
 }
 
+
+function updatePosition(){
+    
+     if (keyDown(LEFT_ARROW) && unpaused){//user steer left
+            leo.position.x = leo.position.x-2;    
+
+        }
+        
+        if (keyDown(RIGHT_ARROW) && unpaused){//user steer right
+            //leo.changeAnimation("moveRight");
+
+            leo.position.x = leo.position.x+2;    
+
+        }
+    
+    
+      if(keyWentDown(82)){   //restarting if prompted by user
+            if (confirm('Are you sure you want to restart?')) {
+            //restart
+                leo.remove();
+                tree.remove();
+                newGame()
+                } else {
+            // keep going!
+                }               
+        }    
+} //updatePosition
+
+
+function collide(item1, item2){  //function for collisions
+    
+     if(leo.overlap(item1)){
+      collision = true;
+      text("Watering", 350, 200);
+      life = life+30;
+    }
+        
+    if(leo.overlap(item2)){
+      collision = true;
+      text("Washing Floor", width-300, 200);
+        if(collision == true){
+        console.log("About to remove");
+        mop.remove();
+        console.log("Removed");
+        life = life - 30;
+        collision = false;
+        storyBoard[0];    //show img
+            
+        }
+    }
+   
+}
 
 
 
@@ -175,8 +197,7 @@ function keepInBorders(){  //constraining leo
   if(leo.position.x > windowWidth)
     leo.position.x = windowWidth;
   if(leo.position.y > windowHeight)
-    leo.position.y = windowHeight;  
-    
+    leo.position.y = windowHeight;     
 
 }
 
