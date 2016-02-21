@@ -33,6 +33,8 @@ var drawOnce = false;
 
 var collisionOccured = false;
 
+var crack, body, toy, branch, bus, stand //more sprites
+
 function preLoad(){
     
     treeImg = loadImage("data/tree.png");
@@ -40,13 +42,13 @@ function preLoad(){
     
     storyboard = [simg1, simg2];
     
-    goodItemsWorld1 = ["tree", "crack", "tree", "crack", "tree", "crack", "crack",
-                      "crack", "tree", "body"];  //sprites for each world stored in an array 
-    badItemsWorld1 = ["toy", "tree", "crack", "tree", "crack", "tree",
-                     "tree", "tree", "crack", "branch"];  //sprites for each world stored in an array 
+    goodItemsWorld1 = [tree, crack, tree, crack, tree, crack, crack,
+                      crack, tree, body];  //sprites for each world stored in an array 
+    badItemsWorld1 = [toy, tree, crack, tree, crack, tree,
+                     tree, tree, crack, branch];  //sprites for each world stored in an array 
 
-    goodItemsWorld2 = ["bus"];
-    badItemsWorld2 = ["stand"];
+    goodItemsWorld2 = [bus];
+    badItemsWorld2 = [stand];
 
 
     
@@ -100,7 +102,7 @@ function draw(){
         if(runTheTimer){
             runTimer();
             fill(255);
-            text(5 - Math.floor(timer/60),100,100); 
+            text(5 - Math.floor(timer/60),width/2,200); 
         }
         
         
@@ -140,7 +142,7 @@ function collide(goodItem, badItem){  //function for collisions
         if(leo.overlap(badItem)){
           text("Washing Floor", width-300, 200);   
           console.log("About to remove");
-          mop.remove();
+          badItem.remove();
           console.log("Removed");
           life = life - 30;
           badDecision = true;  
@@ -170,6 +172,9 @@ function stateIs(){
                 badItemsWorld1[goodValue-1]=createSprite(width-width/12,400,300,250);            
                 drawOnce = true;
             }
+            textSize(20);
+            text("Will you water the tree or play?", width/2, 150);
+            
             collide(goodItemsWorld1[goodValue-1], badItemsWorld1[goodValue-1]);  //collide function
             if(badDecision == true){
                 //execute bad item scenario
@@ -180,15 +185,15 @@ function stateIs(){
                 badDecision = false;
             }  
             else if (goodDecision == true){
-                //good scenario 
-                //goodValue++;
-                 //reset good and bad decisions function
+                goodValue++;
+                //reset good and bad decisions function
                 n++;
                 console.log("I collided with the good item " + n + " times!" );
                 console.log(goodValue);
                 goodDecision = false;
                 //function that triggers the animation with the argument that calls the specific animation
                 triggerAnimation(1);
+                
             }
             
             //badDecision == false
@@ -198,11 +203,14 @@ function stateIs(){
 		case 2:
             runTheTimer = true;
             collisionOccured = false;
+            leo=createSprite(width/2,500,50,50); //leo sprite
+
             if (!drawOnce){
                 goodItemsWorld1[goodValue-1]=createSprite(width/12,400,300,250); 
                 badItemsWorld1[goodValue-1]=createSprite(width-width/12,400,300,250);            
                 drawOnce = true;
             }
+            
             collide(goodItemsWorld1[goodValue-1], badItemsWorld1[goodValue-1]);  //collide function
             if(badDecision == true){
                 //execute bad item scenario
@@ -218,6 +226,8 @@ function stateIs(){
                  //reset good and bad decisions function
                 n++;
                 console.log("I collided with the good item " + n + " times!" );
+                console.log(goodItemsWorld1);
+
                 console.log(goodValue);
                 goodDecision = false;
                 //function that triggers the animation with the argument that calls the specific animation
@@ -263,6 +273,8 @@ function stateIs(){
 			goodItemsWorld1[goodValue-1]=createSprite(width/12,400,300,250); 
             badItemsWorld1[goodValue-1]=createSprite(width-width/12,400,300,250);
 			break;
+    
+        drawSprites();        
 	}
 
     
@@ -306,7 +318,14 @@ function updatePosition(){
         }    
 } //updatePosition
 
+var boost; 
 
+function accelerating(){
+    //if shift pressed
+    //boost--
+    
+    
+}
 
 function lifeDisplay(){
     
@@ -331,7 +350,7 @@ function lifeDisplay(){
 
     }
     
-     console.log(life);
+     //console.log(life);
     rect(width/2-100, 30, life, 40);
 
 }
@@ -362,22 +381,27 @@ function newGame() {//resetting values for new game
     
     life = 100;
     
+    boost = 100;
+    
     goodValue = 1;
     
     leo=createSprite(width/2,500,50,50); //leo sprite
      
     
-    tree=createSprite(width/12,400,300,250); //tree sprite
+    //tree=createSprite(width/12,400,300,250); //tree sprite
     
-    mop=createSprite(width-width/12,400,300,250); //mop sprite
+    //mop=createSprite(width-width/12,400,300,250); //mop sprite
      
     drawSprites();
 }
 
 function resetAllDrawBools(){
-    console.log("Rrestting all draw boolenas");
+    console.log("Resetting all draw booleans");
     drawOnce = false;
 //    drawOnce_02 = false;
+    
+    runTheTimer = true;  //reset timer
+    collisionOccured = false;  //reset collision bool
 }
 
 function keepInBorders(){  //constraining leo

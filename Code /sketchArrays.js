@@ -1,5 +1,7 @@
 var gameover, unpaused, user, treeImg;  //variables for gameplay
 
+var leo, tree, oldMan, bus, mop; //Sprites
+var crack; 
 
 var objects; //group of object Sprites
 
@@ -31,10 +33,6 @@ var drawOnce = false;
 
 var collisionOccured = false;
 
-var leo, oldMan //Sprites
-var tree, crack, body, toy, branch, bus, stand, mop; 
-
-
 function preLoad(){
     
     treeImg = loadImage("data/tree.png");
@@ -42,13 +40,13 @@ function preLoad(){
     
     storyboard = [simg1, simg2];
     
-    goodItemsWorld1 = [tree, crack, tree, crack, tree, crack, crack,
-                      crack, tree, body];  //sprites for each world stored in an array 
-    badItemsWorld1 = [toy, tree, crack, tree, crack, tree,
-                     tree, tree, crack, branch];  //sprites for each world stored in an array 
+    goodItemsWorld1 = ["tree", "crack", "tree", "crack", "tree", "crack", "crack",
+                      "crack", "tree", "body"];  //sprites for each world stored in an array 
+    badItemsWorld1 = ["toy", "tree", "crack", "tree", "crack", "tree",
+                     "tree", "tree", "crack", "branch"];  //sprites for each world stored in an array 
 
-    goodItemsWorld2 = [bus];
-    badItemsWorld2 = [stand];
+    goodItemsWorld2 = ["bus"];
+    badItemsWorld2 = ["stand"];
 
 
     
@@ -90,10 +88,7 @@ function draw(){
         newGame();}    
 
     if(!gameover) {
-        
-        
-        
-        
+         
         
         keepInBorders();  //constraining leo
         
@@ -137,13 +132,12 @@ function collide(goodItem, badItem){  //function for collisions
 
         }
      }
-    
-    
+      
     if(!collisionOccured){
         if(leo.overlap(badItem)){
           text("Washing Floor", width-300, 200);   
           console.log("About to remove");
-          badItem.remove();
+          mop.remove();
           console.log("Removed");
           life = life - 30;
           badDecision = true;  
@@ -184,7 +178,7 @@ function stateIs(){
             }  
             else if (goodDecision == true){
                 //good scenario 
-                goodValue++;
+                //goodValue++;
                  //reset good and bad decisions function
                 n++;
                 console.log("I collided with the good item " + n + " times!" );
@@ -194,7 +188,6 @@ function stateIs(){
                 triggerAnimation(1);
             }
             
-            console.log(goodItemsWorld1);
             //badDecision == false
           
 			break;  // if you don't put in break statements, it will continue
@@ -276,10 +269,18 @@ function stateIs(){
 function triggerAnimation(animVal){
     
     switch(animVal){
-        case 1:        
-    
-   
+        case 1:  
+            //image()
+            //sound()
+      
     }
+    
+        case 2:  
+            //image()
+            //sound()
+      
+        }
+
 }
 
 
@@ -310,7 +311,14 @@ function updatePosition(){
         }    
 } //updatePosition
 
+var boost; 
 
+function accelerating(){
+    //if shift pressed
+    //boost--
+    
+    
+}
 
 function lifeDisplay(){
     
@@ -323,19 +331,20 @@ function lifeDisplay(){
     }
     
     if(80<=life){
-        fill(255, 175, 20);
+        fill(255, 175, 10);
         rect(width/2-100, 30, life, 40);
 
     }
     
     
     else if(life<80){
-        fill(255, 20, 10); 
+        fill(250, 80, 70); 
         rect(width/2-100, 30, life, 40);
 
     }
     
-    console.log(life);
+     console.log(life);
+    rect(width/2-100, 30, life, 40);
 
 }
 
@@ -365,14 +374,16 @@ function newGame() {//resetting values for new game
     
     life = 100;
     
+    boost = 100;
+    
     goodValue = 1;
     
     leo=createSprite(width/2,500,50,50); //leo sprite
      
     
-    //tree=createSprite(width/12,400,300,250); //tree sprite
+    tree=createSprite(width/12,400,300,250); //tree sprite
     
-    //mop=createSprite(width-width/12,400,300,250); //mop sprite
+    mop=createSprite(width-width/12,400,300,250); //mop sprite
      
     drawSprites();
 }
@@ -381,6 +392,9 @@ function resetAllDrawBools(){
     console.log("Rrestting all draw boolenas");
     drawOnce = false;
 //    drawOnce_02 = false;
+    
+    runTheTimer = true;  //reset timer
+    collisionOccured = false;  //reset collision bool
 }
 
 function keepInBorders(){  //constraining leo
