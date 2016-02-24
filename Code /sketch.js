@@ -5,7 +5,7 @@ var crack;
 
 var objects; //group of object Sprites
 
-var life= 100;  //leo's indicator
+var life= 100;  //leo's indicator //self-esteem
 
 var level = 1;  //level variable
  
@@ -34,6 +34,9 @@ var drawOnce = false;
 var collisionOccured = false;
 
 var crack, body, toy, branch, bus, stand //more sprites
+
+var slider, sliderVal;
+
 
 function preLoad(){
     
@@ -77,6 +80,9 @@ function setup(){
     itemsWorld1 = [mop, crack];  
     //camera.position.x=width/2;
 
+    slider = createSlider(0, 20, 2);
+    slider.position(10, 50);
+    slider.style('width', '100px');
    
     
 }//setup
@@ -84,16 +90,14 @@ function setup(){
 
 function draw(){
     
+    sliderVal = slider.value();
+    
     
     if(gameover && keyWentDown(ENTER)){
        
         newGame();}    
 
     if(!gameover) {
-        
-        
-        
-        
         
         keepInBorders();  //constraining leo
         
@@ -104,26 +108,24 @@ function draw(){
             fill(255);
             text(5 - Math.floor(timer/60),width/2,200); 
         }
-        
-        
+           
         lifeDisplay();  //displaying Leo's mood
         
         updatePosition(); //moving Leo
             
-        stateIs();
+        stateIs();     
+    
+        camera.off();//background image is still
+        camera.on();
+    
+    
+        drawSprites();
 
-          
-    
-    camera.off();//background image is still
-    camera.on();
-    
-    
-  drawSprites();
-
-}
+    }
     
 }//close draw
     
+//var prevCollision = false;  //keeps track of previous collision
 
 function collide(goodItem, badItem){  //function for collisions
      if(!collisionOccured){
@@ -131,9 +133,16 @@ function collide(goodItem, badItem){  //function for collisions
           text("Watering", 350, 200);
           life = life+30;
           goodDecision = true;
-          collisionOccured = true;
-             
+          collisionOccured = true;         
           stopTimer = true;
+       
+          leo.position.x = width/2;  //reposition Leo
+             
+          if(life<=170){
+                life = life + 30;}
+          else{
+                life = life;
+          }
 
         }
      }
@@ -144,9 +153,16 @@ function collide(goodItem, badItem){  //function for collisions
           console.log("About to remove");
           badItem.remove();
           console.log("Removed");
-          life = life - 30;
           badDecision = true;  
           collisionOccured = true;
+          if(life>=30){
+                life = life - 30;}
+          else{
+                life = life;
+          }
+
+
+        leo.position.x = width/2;
         }  
     }
 }
@@ -155,6 +171,8 @@ function collide(goodItem, badItem){  //function for collisions
 var n = 0;
 
 function stateIs(){
+  
+    //updatePosition()
     //switch 
     //case 1  (but if bad choice made on case 1, do this)
     
@@ -167,141 +185,144 @@ function stateIs(){
     
     switch(goodValue){
 		case 1:
-            if (!drawOnce){
-                goodItemsWorld1[goodValue-1]=createSprite(width/12,400,300,250); 
-                badItemsWorld1[goodValue-1]=createSprite(width-width/12,400,300,250);            
-                drawOnce = true;
-            }
-            textSize(20);
-            text("Will you water the tree or play?", width/2, 150);
-            
-            collide(goodItemsWorld1[goodValue-1], badItemsWorld1[goodValue-1]);  //collide function
-            if(badDecision == true){
-                //execute bad item scenario
-                //
-                //reset good and bad decisions function
-                //collisionOccured = false;
-                console.log("I collided with the bad item");
-                badDecision = false;
-            }  
-            else if (goodDecision == true){
-                goodValue++;
-                //reset good and bad decisions function
-                n++;
-                console.log("I collided with the good item " + n + " times!" );
-                console.log(goodValue);
-                goodDecision = false;
-                //function that triggers the animation with the argument that calls the specific animation
-                triggerAnimation(1);
-                
-            }
+            levelCase(text1);
+            //console.log(collisionOccured);
+
             
             //badDecision == false
           
 			break;  // if you don't put in break statements, it will continue
 					// on and excute the next case
+            
+            
 		case 2:
-            runTheTimer = true;
-            collisionOccured = false;
-            leo=createSprite(width/2,500,50,50); //leo sprite
-
-            if (!drawOnce){
-                goodItemsWorld1[goodValue-1]=createSprite(width/12,400,300,250); 
-                badItemsWorld1[goodValue-1]=createSprite(width-width/12,400,300,250);            
-                drawOnce = true;
-            }
+            //runTheTimer = true;
+            //collisionOccured = false; 
             
-            collide(goodItemsWorld1[goodValue-1], badItemsWorld1[goodValue-1]);  //collide function
-            if(badDecision == true){
-                //execute bad item scenario
-                //
-                //reset good and bad decisions function
-                collisionOccured = false;
-                console.log("I collided with the bad item");
-                badDecision = false;
-            }  
-            else if (goodDecision == true){
-                //good scenario 
-                //goodValue++;
-                 //reset good and bad decisions function
-                n++;
-                console.log("I collided with the good item " + n + " times!" );
-                console.log(goodItemsWorld1);
-
-                console.log(goodValue);
-                goodDecision = false;
-                //function that triggers the animation with the argument that calls the specific animation
-                triggerAnimation(2);
-            }
+            //stopTimer = false;
+            //console.log("StopTheTimer is"+stopTimer);
             
-            //badDecision == false
+
+
+
+            //leo=createSprite(width/2,500,50,50); //leo sprite
+            //updatePosition()
+
+            levelCase(text2);
           
 			break;
 		case 3:
-			runTheTimer = true;
-            collisionOccured = false;
-            if (!drawOnce){
-                goodItemsWorld1[goodValue-1]=createSprite(width/12,400,300,250); 
-                badItemsWorld1[goodValue-1]=createSprite(width-width/12,400,300,250);            
-                drawOnce = true;
-            }
-            collide(goodItemsWorld1[goodValue-1], badItemsWorld1[goodValue-1]);  //collide function
-            if(badDecision == true){
-                //execute bad item scenario
-                //
-                //reset good and bad decisions function
-                collisionOccured = false;
-                console.log("I collided with the bad item");
-                badDecision = false;
-            }  
-            else if (goodDecision == true){
-                //good scenario 
-                //goodValue++;
-                 //reset good and bad decisions function
-                n++;
-                console.log("I collided with the good item " + n + " times!" );
-                console.log(goodValue);
-                goodDecision = false;
-                //function that triggers the animation with the argument that calls the specific animation
-                triggerAnimation(3);
-            }
-            
-            //badDecision == false
+            //runTheTimer = true;
+            //stopTimer = false;
+ 
+            levelCase(text2);
+           // console.log("StopTheTimer is"+stopTimer);
+
+			
           
 			break;
 		case 4:
-			goodItemsWorld1[goodValue-1]=createSprite(width/12,400,300,250); 
-            badItemsWorld1[goodValue-1]=createSprite(width-width/12,400,300,250);
+		//	runTheTimer = true;
+           // updatePosition()
+
+            levelCase(text2);
+			break;
+            
+        case 5:
+		//	runTheTimer = true;
+           // updatePosition()
+
+            levelCase(text2);
+			break;
+            
+         case 6:
+		//	runTheTimer = true;
+           // updatePosition()
+
+            levelCase(text2);
 			break;
     
-        drawSprites();        
+       // drawSprites();        
 	}
 
     
     
 }
 
-function triggerAnimation(animVal){
+function levelCase(textN){
+    if (!drawOnce){
+                goodItemsWorld1[goodValue-1]=createSprite(width/12,400,300,250); 
+                badItemsWorld1[goodValue-1]=createSprite(width-width/12,400,300,250);            
+                drawOnce = true;
+            }
+            textSize(20);
+            text(textN, width/2, 150);
+            
+            collide(goodItemsWorld1[goodValue-1], badItemsWorld1[goodValue-1]);  //collide function
     
-    switch(animVal){
-        case 1:        
-    
-   
+            if(badDecision == true){
+                console.log("A bad decision was made!");
+                //drawOnce = false;
+                //execute bad item scenario
+                //
+                //reset good and bad decisions function
+                //collisionOccured = false;
+                console.log("I collided with the bad item");
+                triggerAnimation(goodValue, 'bad');
+                badDecision = false;
+                console.log("Good Value is now: " + goodValue);
+                //collisionOccured = false;
+
+                resetAllDrawBools();
+            }  
+            else if (goodDecision == true){
+                console.log("A good decision was made!");
+                
+                drawOnce = false;
+                
+                //reset good and bad decisions function
+//              console.log("I collided with the good item " + n + " times!" );
+                
+                goodDecision = false;
+                //function that triggers the animation with the argument that calls the specific animation
+                triggerAnimation(goodValue,'good');
+                goodValue++;
+                console.log("Good Value is now: " + goodValue);
+                
+                resetAllDrawBools();
+            }
+            
+            
+}
+
+function triggerAnimation(animVal, emotion){
+    console.log("Animation triggered!!!");
+    if (emotion == 'good'){
+        console.log("Show good animation for level: " + animVal);
     }
+    else if (emotion == 'bad'){
+        console.log("Show bad animation for level: " + animVal);
+    }
+    
+//    switch(animVal){
+//        case 1:        
+//    
+   
+   // }
 }
 
 
 function updatePosition(){
     
      if (keyDown(LEFT_ARROW) && unpaused){//user steer left
-            leo.position.x = leo.position.x-2;    
+            leo.position.x = leo.position.x - sliderVal;    
 
         }
         
         if (keyDown(RIGHT_ARROW) && unpaused){//user steer right
             //leo.changeAnimation("moveRight");
 
-            leo.position.x = leo.position.x+2;    
+            leo.position.x = leo.position.x + sliderVal;    
 
         }
     
@@ -331,16 +352,16 @@ function lifeDisplay(){
     
     fill(60);
     rect(width/2-100, 30, 200, 40);
-    if(life>170){
-        fill(0, 230, 70);
-        rect(width/2-100, 30, life, 40);
-    
-    }
-    
-    if(80<=life){
+    if(80<=life && life<=120){
         fill(255, 175, 10);
         rect(width/2-100, 30, life, 40);
 
+    }
+    
+    else if(life>120){
+        fill(0, 230, 70);
+        rect(width/2-100, 30, life, 40);
+    
     }
     
     
@@ -401,6 +422,8 @@ function resetAllDrawBools(){
 //    drawOnce_02 = false;
     
     runTheTimer = true;  //reset timer
+    stopTimer = false;
+    
     collisionOccured = false;  //reset collision bool
 }
 
@@ -429,6 +452,7 @@ function runTimer(){
         console.log("WooHoo");
         level++;
         console.log("You are moving on to level " + level);
+
         console.log(runTheTimer = false);
         timer = 0;
     }
@@ -438,14 +462,20 @@ function runTimer(){
             timer = 0;
         }
         timer++;  
+    
     }
 }
 
 
+var text1 = "Will you water the tree or play?";
+
+var text2 = "Another question";
 
 function windowResized() {
 //  resizeCanvas(windowWidth, windowHeight);
 }
+ 
+//think about time
 
 //change level, with 2 parameters - what level you're on and, what choice was made and
 //where you wanna go and all the changes you wanna make
