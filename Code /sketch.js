@@ -37,6 +37,7 @@ var crack, body, toy, branch, bus, stand //more sprites
 
 var slider, sliderVal;
 
+var fastbreathing; //sounds
 
 function preLoad(){
     
@@ -53,9 +54,8 @@ function preLoad(){
     goodItemsWorld2 = [bus];
     badItemsWorld2 = [stand];
 
-
-    
     bgInside = loadImage("data/bgInside.png");
+
 
 }
 
@@ -83,6 +83,9 @@ function setup(){
     slider = createSlider(0, 20, 2);
     slider.position(10, 50);
     slider.style('width', '100px');
+    
+    //SOUNDS
+    fastbreathing = loadSound("data/fastbreathing.mp3");
    
     
 }//setup
@@ -348,6 +351,9 @@ function accelerating(){
     
 }
 
+var soundStarted = false; //variables that help the sound be triggered and play properly
+var soundBefore = false
+
 function lifeDisplay(){
     
     fill(60);
@@ -355,19 +361,50 @@ function lifeDisplay(){
     if(80<=life && life<=120){
         fill(255, 175, 10);
         rect(width/2-100, 30, life, 40);
+        
+        fastbreathing.stop();
+        console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore)
+
+        
+        if(soundStarted == true && soundBefore == true){
+            soundBefore = false;
+            console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore);
+            console.log("Life: "+life);
+        }
 
     }
     
-    else if(life>120){
+    else if(life>=80){
         fill(0, 230, 70);
         rect(width/2-100, 30, life, 40);
-    
+        
+        fastbreathing.stop();
+        console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore)
+
+        
+        if(soundStarted == true && soundBefore == true){
+            soundBefore = false;
+            console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore);
+            console.log("Life: "+life);
+        }
+        
     }
     
     
     else if(life<80){
         fill(250, 80, 70); 
         rect(width/2-100, 30, life, 40);
+        
+        soundStarted = true;
+        
+        if(soundStarted == true && soundBefore == false){      
+            fastbreathing.loop();
+            soundBefore = soundStarted;
+            soundStarted = false;
+            console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore);
+            console.log("Life: "+life);
+
+        }    
 
     }
     
