@@ -205,11 +205,7 @@ function stateIs(){
             //stopTimer = false;
             //console.log("StopTheTimer is"+stopTimer);
             
-
-
-
             //leo=createSprite(width/2,500,50,50); //leo sprite
-            //updatePosition()
 
             levelCase(text2);
           
