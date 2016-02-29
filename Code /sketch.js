@@ -123,6 +123,11 @@ function draw(){
     
     
         drawSprites();
+        
+        textSize(30);
+        if(life<50){
+            text("Game over", width/2, height/2);
+        }
 
     }
     
