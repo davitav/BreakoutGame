@@ -14,19 +14,16 @@ var collision = false;  //collision variable
 var goodValue = 1;  //current good value to display image
 var badValue = 1;  //current bad value to display 
 
-/*var goodItemsWorld1 = []; 
+var goodItemsWorld1 = []; 
 var badItemsWorld1 = []; //arrays to store objects from world 1 and 2
 var goodItemsWorld2 = [];
-var badItemsWorld2 = [];*/
+var badItemsWorld2 = [];
 
 var badDecision = false;
 var goodDecision = false;
 
-var storyBoard = [];  //good cut scenes
+var storyBoard = [];
 var simg1, simg2;
-
-var badStoryBoard = []; //bad cut scenes
-var bsimg1, bsimg2; 
 
 var bgInside;
 
@@ -42,42 +39,22 @@ var slider, sliderVal;
 
 var fastbreathing; //sounds
 
-var goodItemsWorld1, badItemsWorld1, goodItemsWorld2, badItemsWorld2 //groups to store objects from world 1 and 2
-
-function preload(){
+function preLoad(){
     
-
-    treeImg = loadImage("data/balloon2.png");
-    crackImg = loadImage("data/balloon3.png");
-    /*toyImg = loadImage("data/bgInside.jpg");
-    branchImg = loadImage("data/bgInside.jpg");*/
-    //leoImg = loadImage("data/bgInside.jpg");
+    treeImg = loadImage("data/tree.png");
+    leoImg = loadImage("data/tree.png");
     
-
-    //storyboard = [simg1, simg2];
+    storyboard = [simg1, simg2];
     
-    //spriteArray = getSprites();
-    
-    //console.log(spriteArray);
-    
-    /*goodItemsWorld1 = [tree, crack, tree, crack, tree, crack, crack,
+    goodItemsWorld1 = [tree, crack, tree, crack, tree, crack, crack,
                       crack, tree, body];  //sprites for each world stored in an array 
     badItemsWorld1 = [toy, tree, crack, tree, crack, tree,
-                     tree, tree, crack, branch];  //sprites for each world stored in an array */
+                     tree, tree, crack, branch];  //sprites for each world stored in an array 
 
-    //goodItemsWorld2 = [bus];
-    //badItemsWorld2 = [stand];
-    
-    bgInside = loadImage("data/bgInside.jpg", function(){
-        console.log("I'm loaded!!!!");
-    });
-//    function(e){
-//        console.log("We got problems");
-//        console.log(e);
-//    });
-    
-  //  storyBoard = [bgInside];
+    goodItemsWorld2 = [bus];
+    badItemsWorld2 = [stand];
 
+    bgInside = loadImage("data/bgInside.png");
 
 
 }
@@ -85,38 +62,6 @@ function preload(){
 
 function setup(){
     
-    console.log("In setup!");
-    
-    
-    tree = createSprite(windowWidth/12,500,300,250);  //setting up sprites, their images
-    crack = createSprite(windowWidth-windowWidth/12,500,300,250);
-    body = createSprite(width-width/12,400,300,250);
-    
-    branch = createSprite(width-width/12,400,300,250);
-    
-    
-    tree.addImage("tree", treeImg);
-    crack.addImage("crack", crackImg);
-    //body.addImage("body", bodyImg);
-    //branch.addImage("branch", branchImg);
-    
-    goodItemsWorld1 = new Group();  //creating groups for arrays
-    badItemsWorld1 = new Group();
-    
-    goodItemsWorld1.add(tree);
-    goodItemsWorld1.add(crack);
-    
-    goodItemsWorld1.add(tree);
-    goodItemsWorld1.add(crack);
-
-    badItemsWorld1.add(crack);
-    badItemsWorld1.add(tree);
-
-    
-    console.log(goodItemsWorld1);
-    console.log(badItemsWorld1);
-
-
     createCanvas(windowWidth, windowHeight);
     bg1(); 
     
@@ -133,6 +78,7 @@ function setup(){
     text("Press R to restart and P to Pause", windowWidth/2, windowHeight/2+50);
 
     itemsWorld1 = [mop, crack];  
+    //camera.position.x=width/2;
 
     slider = createSlider(0, 20, 2);
     slider.position(10, 50);
@@ -149,16 +95,12 @@ function draw(){
     
     sliderVal = slider.value();
     
-    console.log("draw");
     
     if(gameover && keyWentDown(ENTER)){
        
         newGame();}    
 
     if(!gameover) {
-        
-        console.log("!gameover");
-
         
         keepInBorders();  //constraining leo
         
@@ -167,7 +109,7 @@ function draw(){
         if(runTheTimer){
             runTimer();
             fill(255);
-            text(25 - Math.floor(timer/60),width/2,200); 
+            text(5 - Math.floor(timer/60),width/2,200); 
         }
            
         lifeDisplay();  //displaying Leo's mood
@@ -179,39 +121,28 @@ function draw(){
         camera.off();//background image is still
         camera.on();
     
-        console.log("draw still running");
-
     
-        drawSprite(leo);
-        
-        console.log("gameover: "+gameover);
+        drawSprites();
         
         textSize(30);
         if(life<50){
             text("Game over", width/2, height/2);
         }
-        
-        if(life<60){
-            gameover=true;
-            //img
-        }
 
     }
     
-                
 }//close draw
     
+//var prevCollision = false;  //keeps track of previous collision
 
 function collide(goodItem, badItem){  //function for collisions
      if(!collisionOccured){
          if(leo.overlap(goodItem)){
-          //text("Watering", 350, 200);
+          text("Watering", 350, 200);
           life = life+30;
           goodDecision = true;
           collisionOccured = true;         
           stopTimer = true;
-             
-          badItem.remove(); //we won't need the bad item anymore if we go to the next level
        
           leo.position.x = width/2;  //reposition Leo
              
@@ -228,7 +159,7 @@ function collide(goodItem, badItem){  //function for collisions
         if(leo.overlap(badItem)){
           text("Washing Floor", width-300, 200);   
           console.log("About to remove");
-          //badItem.remove();
+          badItem.remove();
           console.log("Removed");
           badDecision = true;  
           collisionOccured = true;
@@ -240,7 +171,6 @@ function collide(goodItem, badItem){  //function for collisions
 
 
         leo.position.x = width/2;
-            
         }  
     }
 }
@@ -250,122 +180,131 @@ var n = 0;
 
 function stateIs(){
   
+    //updatePosition()
+    //switch 
+    //case 1  (but if bad choice made on case 1, do this)
     
-    /*drawSprite(goodItemsWorld1[goodValue-1]);
-    drawSprite(badItemsWorld1[goodValue-1]);*/
-        
-    console.log("case2");
-
+    //what's the current status of the character? how does he appear visually)
+    
+    
+    //choice is made, we see transition
+    //value of state increments
+    //we're back into a new state
     
     switch(goodValue){
 		case 1:
             levelCase(text1);
-            //img(bgInside, 0, 0);
-         
-			break; 
-                   
-		case 2:
-            
-            console.log("case2");
-            levelCase(text2);
-            leo.position.x = width/2;  //reposition Leo
+            //console.log(collisionOccured);
 
+            
+            //badDecision == false
+          
+			break;  // if you don't put in break statements, it will continue
+					// on and excute the next case
+            
+            
+		case 2:
+            //runTheTimer = true;
+            //collisionOccured = false; 
+            
+            //stopTimer = false;
+            //console.log("StopTheTimer is"+stopTimer);
+            
+            //leo=createSprite(width/2,500,50,50); //leo sprite
+
+            levelCase(text2);
           
 			break;
-            
 		case 3:
-           
-            levelCase(text3);
+            //runTheTimer = true;
+            //stopTimer = false;
+ 
+            levelCase(text2);
+           // console.log("StopTheTimer is"+stopTimer);
 
+			
           
 			break;
 		case 4:
-		
+		//	runTheTimer = true;
+           // updatePosition()
 
-            levelCase(text4);
+            levelCase(text2);
 			break;
             
         case 5:
+		//	runTheTimer = true;
+           // updatePosition()
 
             levelCase(text2);
 			break;
             
          case 6:
+		//	runTheTimer = true;
+           // updatePosition()
 
             levelCase(text2);
 			break;
-    	}   
+    
+       // drawSprites();        
+	}
+
+    
+    
 }
 
 function levelCase(textN){
-    if (!drawOnce && !showingAnimation){
-              
-                console.log("In drawing animation");
-                console.log(goodItemsWorld1[goodValue-1]);
-
-                //drawSprite(goodItemsWorld1[goodValue-1]);
-                //drawSprite(badItemsWorld1[goodValue-1]);
-            
+    if (!drawOnce){
+                goodItemsWorld1[goodValue-1]=createSprite(width/12,400,300,250); 
+                badItemsWorld1[goodValue-1]=createSprite(width-width/12,400,300,250);            
                 drawOnce = true;
             }
             textSize(20);
             text(textN, width/2, 150);
-    
-            drawSprite(goodItemsWorld1[goodValue-1]);
-            drawSprite(badItemsWorld1[goodValue-1]);
             
-    
             collide(goodItemsWorld1[goodValue-1], badItemsWorld1[goodValue-1]);  //collide function
     
             if(badDecision == true){
                 console.log("A bad decision was made!");
-        
+                //drawOnce = false;
+                //execute bad item scenario
+                //
+                //reset good and bad decisions function
+                //collisionOccured = false;
                 console.log("I collided with the bad item");
                 triggerAnimation(goodValue, 'bad');
                 badDecision = false;
                 console.log("Good Value is now: " + goodValue);
+                //collisionOccured = false;
 
                 resetAllDrawBools();
             }  
             else if (goodDecision == true){
                 console.log("A good decision was made!");
                 
-                drawOnce = false;    
-                                
+                drawOnce = false;
+                
+                //reset good and bad decisions function
+//              console.log("I collided with the good item " + n + " times!" );
+                
+                goodDecision = false;
                 //function that triggers the animation with the argument that calls the specific animation
                 triggerAnimation(goodValue,'good');
-                //goodValue++;
+                goodValue++;
                 console.log("Good Value is now: " + goodValue);
                 
-                //resetAllDrawBools();
+                resetAllDrawBools();
             }
             
             
 }
 
-var allSprites;
-
-
 function triggerAnimation(animVal, emotion){
     console.log("Animation triggered!!!");
     if (emotion == 'good'){
-        //storyBoard[animval];
-        image(bgInside, 0, 0);
-        showingAnimation = true;
-        lifeDisplay();
-        
-        //goodItemsWorld1[goodValue-1].remove(); 
-        //badItemsWorld1[goodValue-1].remove();
-        //leo.position.x = width+500;
-        
-        
         console.log("Show good animation for level: " + animVal);
     }
     else if (emotion == 'bad'){
-        //badStoryBoard[animval];
-        
-        showingBadAnimation = true;
-        lifeDisplay();
         console.log("Show bad animation for level: " + animVal);
     }
     
@@ -396,8 +335,7 @@ function updatePosition(){
             if (confirm('Are you sure you want to restart?')) {
             //restart
                 leo.remove();
-                goodItemsWorld1[goodValue-1].remove();
-                badItemsWorld1[goodValue-1].remove();
+                tree.remove();
                 newGame()
                 } else {
             // keep going!
@@ -409,7 +347,8 @@ var boost;
 
 function accelerating(){
     //if shift pressed
-    //boost-
+    //boost--
+    
     
 }
 
@@ -425,14 +364,14 @@ function lifeDisplay(){
         rect(width/2-100, 30, life, 40);
         
         fastbreathing.stop();
-        //console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore)
+        console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore)
 
         
-        /*if(soundStarted == true && soundBefore == true){
+        if(soundStarted == true && soundBefore == true){
             soundBefore = false;
             console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore);
             console.log("Life: "+life);
-        }*/
+        }
 
     }
     
@@ -441,13 +380,14 @@ function lifeDisplay(){
         rect(width/2-100, 30, life, 40);
         
         fastbreathing.stop();
-        //console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore)
-      
-        /*if(soundStarted == true && soundBefore == true){
+        console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore)
+
+        
+        if(soundStarted == true && soundBefore == true){
             soundBefore = false;
             console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore);
             console.log("Life: "+life);
-        }*/
+        }
         
     }
     
@@ -462,8 +402,8 @@ function lifeDisplay(){
             fastbreathing.loop();
             soundBefore = soundStarted;
             soundStarted = false;
-            //console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore);
-            //console.log("Life: "+life);
+            console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore);
+            console.log("Life: "+life);
 
         }    
 
@@ -505,12 +445,19 @@ function newGame() {//resetting values for new game
     goodValue = 1;
     
     leo=createSprite(width/2,500,50,50); //leo sprite
-          
+     
+    
+    //tree=createSprite(width/12,400,300,250); //tree sprite
+    
+    //mop=createSprite(width-width/12,400,300,250); //mop sprite
+     
+    drawSprites();
 }
 
 function resetAllDrawBools(){
     console.log("Resetting all draw booleans");
     drawOnce = false;
+//    drawOnce_02 = false;
     
     runTheTimer = true;  //reset timer
     stopTimer = false;
@@ -541,6 +488,8 @@ var timeLimit = 300;
 function runTimer(){
     if (stopTimer){
         console.log("WooHoo");
+        level++;
+        console.log("You are moving on to level " + level);
 
         console.log(runTheTimer = false);
         timer = 0;
@@ -557,49 +506,30 @@ function runTimer(){
 
 
 var text1 = "Will you water the tree or play?";
-var text2 = "Question 2";
-var text3 = "Question 3";
-var text4 = "Question 4";
-var text5 = "Question 5";
 
-
-//var showingSprites = true;
-
-var showingAnimation;
-var showingBadAnimation = false;
-function mousePressed(){
-    console.log("Mouse was pressed!");
-    if (showingAnimation){
-        //proceed to next level
-        console.log("Moving on to next level.");
-        
-        goodValue++;
-        resetAllDrawBools();
-        goodDecision = false;
-        showingAnimation = false;
-        
-        console.log(goodValue);
-        console.log(gameover);
-    }
-    
-    /*if(showingBadAnimation){
-        
-        resetAllDrawBools();
-        badDecision = false;
-        showingBadAnimation = false;
-
-    }*/
-}
+var text2 = "Another question";
 
 function windowResized() {
 //  resizeCanvas(windowWidth, windowHeight);
 }
  
+//think about time
 
-//image load 
+//change level, with 2 parameters - what level you're on and, what choice was made and
+//where you wanna go and all the changes you wanna make
+//array with all the choices
+//array for good and for bad
+//give me a good object of value 3
 
-//image timer
 
-//pause
+//help Leo while it's still summer 
+//as soon as winter comes you can't act anymore
+//this is your chance to lead a happy and fulfilling life 
+//once it's winter, you start over 
 
-//color desaturation
+
+//the indicator doesn't work properly 
+//collide function
+//timer
+//image
+//time of year
