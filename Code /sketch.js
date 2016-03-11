@@ -44,8 +44,12 @@ var badItemsLevel1, badItemsLevel2;
 
 var story1;
 
+var startImg
+
 function preload(){
     
+    
+    startImg = loadImage("data/start.png");
 
     treeImg = loadImage("data/balloon2.png");
     crackImg = loadImage("data/balloon3.png");
@@ -66,9 +70,7 @@ function preload(){
 
 
 function setup(){
-    
-    console.log("In setup!");
-    
+        
     
     tree = createSprite(windowWidth/12,500,300,250);  //setting up sprites, their images
     crack = createSprite(windowWidth-windowWidth/12,500,300,250);
@@ -157,7 +159,7 @@ function setup(){
 
     itemsWorld1 = [mop, crack];  
 
-    slider = createSlider(0, 20, 2);
+    slider = createSlider(0, 20, 10);
     slider.position(10, 50);
     slider.style('width', '100px');
     
@@ -170,6 +172,7 @@ function setup(){
 
 function draw(){
     
+    console.log(showingBadAnimation);
     sliderVal = slider.value();
     
     if(gameover && keyWentDown(ENTER)){
@@ -231,12 +234,10 @@ function collide(goodItem, badItem){  //function for collisions
       
     if(!collisionOccured){
         if(leo.overlap(badItem)){
-          console.log("About to remove");
-          //badItem.remove();
-          console.log("Removed");
+        
           badDecision = true;  
           collisionOccured = true;
-          curLevelVal++;
+          //curLevelVal++;
           if(life>=30){
                 life = life - 30;}
           else{
@@ -272,7 +273,6 @@ function stateIs(){
 			break; 
                    
 		case 2:
-            
             levelCase(levelTwoQ[curLevelVal]);
 			break;
             
@@ -310,10 +310,7 @@ function stateIs(){
 }
 
 function levelCase(textN){
-    if (!drawOnce && !showingAnimation){
-              
-                console.log("In drawing animation");
-                console.log(goodItemsWorld1[goodValue-1][curLevelVal]);
+    if (!drawOnce && !showingAnimation && !showingBadAnimation){
             
                 drawOnce = true;
             }
@@ -322,9 +319,7 @@ function levelCase(textN){
     
             drawSprite(goodItemsWorld1[goodValue-1][curLevelVal]);
             drawSprite(badItemsWorld1[goodValue-1][curLevelVal]);
-        
-            console.log("bad: "+ badItemsWorld1);    
-    
+            
             if(runTheTimer){
             runTimer();
             fill(255);
@@ -332,26 +327,21 @@ function levelCase(textN){
         }
     
             collide(goodItemsWorld1[goodValue-1][curLevelVal], badItemsWorld1[goodValue-1][curLevelVal]);  //collide function
-    
-            if(badDecision == true){
-                console.log("A bad decision was made!");
         
-                console.log("I collided with the bad item");
-                triggerAnimation(goodValue, 'bad');
-                badDecision = false;
-                console.log("Good Value is now: " + goodValue);
+            if(badDecision == true){
+        
+                drawOnce = false;    
 
-                resetAllDrawBools();
+                triggerAnimation(goodValue-1, 'bad');
+                //badDecision = false;
+
+                //resetAllDrawBools();
             }  
             else if (goodDecision == true){
-                console.log("A good decision was made!");
-                
                 drawOnce = false;    
                                 
                 //function that triggers the animation with the argument that calls the specific animation
-                triggerAnimation(goodValue,'good');
-                //goodValue++;
-                console.log("Good Value is now: " + goodValue);
+                triggerAnimation(goodValue-1,'good');
                 
             }          
             
@@ -361,9 +351,9 @@ var allSprites;
 
 
 function triggerAnimation(animVal, emotion){
-    console.log("Animation triggered!!!");
+
     if (emotion == 'good'){
-        //storyBoard[animval];
+        //image(storyBoard[animval], 0, 0, width, height);
         image(story1, 0, 0, width, height);
         showingAnimation = true;
         lifeDisplay();
@@ -375,10 +365,16 @@ function triggerAnimation(animVal, emotion){
     }
     else if (emotion == 'bad'){
         
-        //badStoryBoard[animval];        
+        //image(badStoryBoard[animval], 0, 0, width, height);
+        image(story1, 0, 0, width, height);
+
         showingBadAnimation = true;
         lifeDisplay();
-        console.log("Show bad animation for level: " + animVal);
+        
+        leo.position.x = width+500;
+
+        //console.log("Show bad animation for level: " + animVal);
+        
     }
     
 //    switch(animVal){
@@ -613,12 +609,12 @@ var text5 = "Question 5";*/
 //var showingSprites = true;
 
 var showingAnimation;
-var showingBadAnimation = false;
+var showingBadAnimation;
 function mousePressed(){
-    console.log("Mouse was pressed!");
+    //console.log("Mouse was pressed!");
     if (showingAnimation){
         //proceed to next level
-        console.log("Moving on to next level.");
+        //console.log("Moving on to next level.");
         
         
         goodValue++;
@@ -628,20 +624,27 @@ function mousePressed(){
         
         leo.position.x = width/2;
         
-        console.log(goodValue);
-        console.log(gameover);
     }
     
-    /*if(showingBadAnimation){
+    if(showingBadAnimation){
         
+        curLevelVal++;
+         
         resetAllDrawBools();
         badDecision = false;
         showingBadAnimation = false;
+        
+        //console.log("badanim: "+showingBadAnimation);
+        
+        leo.position.x = width/2;
 
-    }*/
+
+    }
 }
 
 function startScreen(){
+    
+    image(startImg, 0, 0, windowWidth, windowHeight);
     fill(255);
     textAlign(CENTER);
     textSize(24);
