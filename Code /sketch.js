@@ -172,7 +172,6 @@ function setup(){
 
 function draw(){
     
-    console.log(showingBadAnimation);
     sliderVal = slider.value();
     
     if(gameover && keyWentDown(ENTER)){
@@ -256,7 +255,7 @@ var n = 0;
 
 function setMood(value){
     if(value==1){ 
-        fill('rgba(50, 100, 130, 0.25)');
+        fill('rgba(250, 70, 90, 0.25)');
         noStroke();
         rect(0, 0, windowWidth, windowHeight);
         fill(0);   
@@ -354,19 +353,30 @@ function triggerAnimation(animVal, emotion){
 
     if (emotion == 'good'){
         //image(storyBoard[animval], 0, 0, width, height);
+        
         image(story1, 0, 0, width, height);
+        
+        fill(0,240, 50);
+        text("+30", width/2, 100);
+        fill(0);
+        
         showingAnimation = true;
         lifeDisplay();
         
         leo.position.x = width+500;
         
         
-        console.log("Show good animation for level: " + animVal);
+        //console.log("Show good animation for level: " + animVal);
     }
     else if (emotion == 'bad'){
         
         //image(badStoryBoard[animval], 0, 0, width, height);
         image(story1, 0, 0, width, height);
+        
+        fill(240, 20, 50);
+        text("-30", width/2, 100);
+        fill(0);
+        
 
         showingBadAnimation = true;
         lifeDisplay();
@@ -563,8 +573,6 @@ var timeLimit = 300;
 
 function runTimer(){
     if (stopTimer){
-        console.log("WooHoo");
-
         console.log(runTheTimer = false);
         timer = 0;
     }
