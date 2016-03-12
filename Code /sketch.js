@@ -54,7 +54,7 @@ function preload(){
     treeImg = loadImage("data/balloon2.png");
     crackImg = loadImage("data/balloon3.png");
     
-    leoLeft = loadImage("data/leo_left.png");
+    //leoLeft = loadAnimation("left", "data/leo_left.png", "data/leo_left.png");
     
     leoRight = loadImage("data/leo_right01.png");
     
@@ -214,13 +214,15 @@ function collide(goodItem, badItem){  //function for collisions
      if(!collisionOccured){
          if(leo.overlap(goodItem)){
           //text("Watering", 350, 200);
+          leo.position.x = width/2;  //reposition Leo
+
           life = life+30;
+          console.log(life);
           goodDecision = true;
           collisionOccured = true;         
           stopTimer = true;
           curLevelVal = 0;
                    
-          leo.position.x = width/2;  //reposition Leo
              
           if(life<=170){
                 life = life + 30;}
@@ -235,6 +237,8 @@ function collide(goodItem, badItem){  //function for collisions
         if(leo.overlap(badItem)){
         
           badDecision = true;  
+          leo.position.x = width/2;
+
           collisionOccured = true;
           //curLevelVal++;
           if(life>=30){
@@ -242,9 +246,6 @@ function collide(goodItem, badItem){  //function for collisions
           else{
                 life = life;
           }
-
-
-        leo.position.x = width/2;
             
         }  
     }
@@ -398,12 +399,15 @@ function triggerAnimation(animVal, emotion){
 function updatePosition(){
     
      if (keyDown(LEFT_ARROW) && unpaused){//user steer left
-            leo.position.x = leo.position.x - sliderVal;    
+            leo.changeAnimation("left");
+
+            leo.position.x = leo.position.x - sliderVal;
+         
 
         }
         
         if (keyDown(RIGHT_ARROW) && unpaused){//user steer right
-            leo.changeImage("leoRight", leoRight);
+            leo.changeAnimation("right");
 
             leo.position.x = leo.position.x + sliderVal;    
 
@@ -535,9 +539,11 @@ function newGame() {//resetting values for new game
     goodValue = 1;
     
     leo=createSprite(width/2,400,50,50); //leo sprite
-    //leo.scale(0.5);
-    
-    leo.addImage("move", leoLeft); 
+        
+    leo.addAnimation("right", "data/leo_right01.png", "data/leo_right01.png"); 
+
+    leo.addAnimation("left", "data/leo_left01.png", "data/leo_left01.png");
+     
           
 }
 
@@ -626,17 +632,20 @@ function mousePressed(){
         
         
         goodValue++;
+        leo.position.x = width/2;
+
         resetAllDrawBools();
         goodDecision = false;
         showingAnimation = false;
         
-        leo.position.x = width/2;
         
     }
     
     if(showingBadAnimation){
         
         curLevelVal++;
+        leo.position.x = width/2;
+
          
         resetAllDrawBools();
         badDecision = false;
@@ -644,7 +653,6 @@ function mousePressed(){
         
         //console.log("badanim: "+showingBadAnimation);
         
-        leo.position.x = width/2;
 
 
     }
