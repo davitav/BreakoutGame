@@ -358,6 +358,7 @@ function triggerAnimation(animVal, emotion){
         image(story1, 0, 0, width, height);
         
         fill(0,240, 50);
+        textSize(26);
         text("+30", width/2, 100);
         fill(0);
         
@@ -375,6 +376,8 @@ function triggerAnimation(animVal, emotion){
         image(story1, 0, 0, width, height);
         
         fill(240, 20, 50);
+        textSize(26);
+
         text("-30", width/2, 100);
         fill(0);
         
