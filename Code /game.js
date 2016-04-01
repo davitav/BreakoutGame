@@ -57,6 +57,8 @@ function stateIs(){
         curLevelVal = 0;
     }
     
+    transitionCut()
+    
     bg1();
     
     switch(goodValue){
@@ -195,6 +197,11 @@ function triggerAnimation(animVal, emotion){
         //image(badStoryBoard[animval], 0, 0, width, height);
         image(story1, 0, 0, width, height);
         
+        background(0);
+        
+        textSize(40);
+        text(levelOneBad[curLevelVal], width/2, height/2);
+        
         fill(240, 20, 50);
         textSize(26);
 
@@ -214,6 +221,11 @@ function triggerAnimation(animVal, emotion){
     else if (emotion == 'timelapse'){
         
         image(story1, 0, 0, width, height);
+        
+        background(0);
+        
+        textSize(40);
+        text("Time ran out."+levelOneBad[curLevelVal], width/2, height/2);
         
         fill(240, 20, 50);
         textSize(26);
@@ -383,7 +395,7 @@ function newGame() {//resetting values for new game
 }
 
 function resetAllDrawBools(){
-    console.log("Resetting all draw booleans");
+    //console.log("Resetting all draw booleans");
     drawOnce = false;
     
     runTheTimer = true;  //reset timer
@@ -414,7 +426,7 @@ function runTimer(){
     }
     else{
         if (timer > timeLimit){
-            console.log("Time ran out");
+            //console.log("Time ran out");
             drawOnce = false;
             runTheTimer = false;
             timeDecision = true;
@@ -445,8 +457,9 @@ function runTimer(){
 }
 
 
-function mousePressed(){
+function transitionCut(){
     //console.log("Mouse was pressed!");
+    if(keyDown(32)){
     if (showingAnimation){
         //proceed to next level
         //console.log("Moving on to next level.");
@@ -487,6 +500,7 @@ function mousePressed(){
         leo.position.y = 400;
 
     }
+}
 }
 
 function startScreen(){

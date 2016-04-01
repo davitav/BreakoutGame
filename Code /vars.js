@@ -219,6 +219,79 @@ var levelTwelveGood = [
 ];
 
 
+////////////
+//bad cut scenes
+
+var levelOneBad = [
+    "Your friend, the tree is withering. What do you do with your water??1",
+    "The tree gets more thirsty and calls you. But you hear a scream.",
+    "Tree revives and you hear a muffled scream."
+];
+
+var levelTwoBad = [
+    "Tree revives and you hear a muffled scream.",
+    "The tree gets more thirsty and calls you. But you hear a scream.",
+    "Tree revives and you hear a muffled scream."
+];
+
+var levelThreeBad = [
+    "Your tree is really thirsty and dying. It starts pulling you towards it. What do you do?3",
+    "You still can't see anything. The tree is pulling you. Do you water the tree or peek more?",
+    "You still can't see. The tree is still pulling you. Do you water the tree or peek more?"
+];
+
+var levelFourBad = [
+    "You hear louder screams from outside.",
+    "It's dark and the tree is strangling you with its hug. It wants to be watered. Screams are still going on. Do you peek out or water the tree",
+    "You hear louder screams from outside."
+];
+
+var levelFiveBad = [
+    "It's too bright to see. In the meantime the tree starts to drag you back as it needs water.",
+    "It's too bright to see. In the meantime the tree starts to drag you back as it needs water.",
+    "It's too bright to see. In the meantime the tree starts to drag you back as it needs water."
+];
+
+var levelSixBad = [
+    "The tree is relieved. It may need some pruning. Meanwhile you hear sharper screams!",
+    "While you were pruning, the screams become more human-like. The tree is already thirsty.",
+    "The tree is relieved. It may need some pruning. Meanwhile you hear sharper screams!"
+];
+
+var levelSevenBad = [
+    "You start seeing silhouettes in the crack.",
+    "The tree is fine. In the meantime you start hearing alarming human sounds.",
+    "It's dark and the tree is strangling you with its hug. It wants to be watered. Screams are still going on. Do you peek out or water the tree"
+];
+
+var levelEightBad = [
+    "You can now see. You see an old man thrashing his limbs. After a closer look, you see a bus approaching the man and his foot is stuck. He might die! Meanwhile the tree grabs you again - it's time to water it.",
+    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable",
+    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable"
+];
+
+var levelNineBad = [
+    "You expand the crack. The tree grabs you and starts pulling you forcefully. The old man might die. You drop a pair of shears as you're being dragged.",
+    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable",
+    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable"
+];
+
+var levelTenBad = [
+    "Having cut the tree you now need to break through the wall.",
+    "The branch isn't strong enough. Do you use your body or try with the shears?",
+    "The shears break. What now?"
+];
+
+var levelElevenBad = [
+    "You've broken through. You see a silhouette amidst fog. What do you do?",
+    "You hear a bus driving by and a loud scream. You feel someone grip your arm",
+    "You hear a bus driving by and a loud scream. You feel someone grip your arm"
+];
+
+var levelTwelveBad = [
+    "Ending in Storyboard form: Leo takes the first step to run towards the cave, but spots his own reflection on a storefront glass. He stops to look at his reflection. He slowly moves his hand across his face and realizes the scar is gone, wrinkles are gone and his skin color is back to normal. Leo’s eyes light up and he starts happily jumping in place. Wow, I’m here, I’m doing it."
+];
+
 /*var text1 = "Will you water the tree or drink the water yourself?";
 var text2 = "Question 2";
 var text3 = "Question 3";

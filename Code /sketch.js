@@ -251,6 +251,9 @@ function draw(){
         textSize(30);
         if(life<50){
             gameover=true;
+            
+            background(0);
+
             text("Game over", width/2, height/2);
         }
         
