@@ -34,6 +34,7 @@ function setup(){
     
     tree.addImage("tree", treeImg);
     crack.addImage("crack", crackImg);
+    toy.addImage("tree", treeImg);
     
     ////////////////////////////////
     
@@ -265,24 +266,3 @@ function draw(){
     
 
 
-
-//health description 
-
-//enter instead of mouse press (or any key) 
-
-
-
-//we're not in good-bad anymore, we're in subset of bad: bad-bad
-
-//boolean that chooses between good and bad track - true/false
-
-//if I'm in the bad track, what's the value, if I'm in the good track, what's the value?
-
-//badChoise 1 and badChoice 2 instead of goodChoice and badChoice
-
-
-//hey I'm on level 1, if I get it wrong, give me another pair
-//var levelOneQuestion [0][0][0]
-
-
-//keep track, depending on how many they got wrong, change the flow of the game 

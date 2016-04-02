@@ -13,6 +13,7 @@ var collision = false;  //collision variable
 
 var goodValue = 1;  //current good value to display image
 var badValue = 1;  //current bad value to display 
+var cutSceneValue = 1;
 
 var badDecision = false;
 var goodDecision = false;
@@ -68,7 +69,7 @@ function setTime(theTime){
     startTime = theTime;
     timeLimit = startTime * 60;
 }
-setTime(5);
+setTime(25);
 /////////////
 
 var curLevelVal = 0;  //variable that progresses us to the other choise on the same level if a bad choice was made

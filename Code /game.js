@@ -4,12 +4,14 @@ function collide(goodItem, badItem){  //function for collisions
           //text("Watering", 350, 200);
           leo.position.x = width/2;  //reposition Leo
 
-          life = life+30;
+          life = life+15;
           console.log(life);
           goodDecision = true;
           collisionOccured = true;         
           stopTimer = true;
           curLevelVal = 0;
+        
+          cutSceneValue++;
                    
              
           if(life<=170){
@@ -28,7 +30,7 @@ function collide(goodItem, badItem){  //function for collisions
           leo.position.x = width/2;
 
           collisionOccured = true;
-          //curLevelVal++;
+          curLevelVal++;
            if(life=>30){
                 life = life - 30;}
           else{
@@ -149,7 +151,6 @@ function levelCase(textN){
         drawOnce = false;    
 
         triggerAnimation(goodValue-1, 'bad');
-        //badDecision = false;
 
         //resetAllDrawBools();
     }  
@@ -176,18 +177,17 @@ function triggerAnimation(animVal, emotion){
         image(story1, 0, 0, width, height);
         background(0);
         
-        textSize(40);
-        text(levelOneGood[curLevelVal], width/2, height/2);
-        
+        textSize(36);
+        cutScenePlacing();        
         fill(0,240, 50);
         textSize(26);
         text("+30", width/2, 100);
         fill(0);
-        
+        leo.position.x = width+500;
+
         showingAnimation = true;
         lifeDisplay();
         
-        leo.position.x = width+500;
         
         
         //console.log("Show good animation for level: " + animVal);
@@ -200,7 +200,7 @@ function triggerAnimation(animVal, emotion){
         background(0);
         
         textSize(40);
-        text(levelOneBad[curLevelVal], width/2, height/2);
+        cutScenePlacing();        
         
         fill(240, 20, 50);
         textSize(26);
@@ -225,8 +225,7 @@ function triggerAnimation(animVal, emotion){
         background(0);
         
         textSize(40);
-        text("Time ran out."+levelOneBad[curLevelVal], width/2, height/2);
-        
+        cutScenePlacing();
         fill(240, 20, 50);
         textSize(26);
 
@@ -464,21 +463,23 @@ function transitionCut(){
         //proceed to next level
         //console.log("Moving on to next level.");
         
-        setTime(5);
+        setTime(25);
         goodValue++;
-        leo.position.x = width/2;
 
         resetAllDrawBools();
         goodDecision = false;
         showingAnimation = false;
+        
+        leo.position.x = width/2;
+
         
         
     }
     
     if(showingBadAnimation){
         
-        curLevelVal++;
-        setTime(5);
+        //curLevelVal++;
+        setTime(25);
         
         leo.position.x = width/2;
       
@@ -492,7 +493,7 @@ function transitionCut(){
     if (showingTimeAnimation){
  
         curLevelVal++;
-        setTime(5);
+        setTime(25);
         resetAllDrawBools();
         showingTimeAnimation = false;
         timeDecision = false;
@@ -525,4 +526,75 @@ function windowResized() {
     
 }
  
+function cutScene(textM){
+    
+    background(0);
+    text(textM, width/2, 150);  
+    
+}
+
+function cutScenePlacing(){
+    
+    switch(cutSceneValue){
+		case 1:
+            cutScene(levelOneQ[curLevelVal]);         
+			break; 
+                   
+		case 2:
+            cutScene(levelTwoQ[curLevelVal]);
+			break;
+            
+		case 3:
+           
+            cutScene(levelThreeQ[curLevelVal]);    
+			break;
+            
+		case 4:	
+
+            cutScene(levelFourQ[curLevelVal]);
+			break;
+            
+        case 5:
+
+            cutScene(levelFiveQ[curLevelVal]);
+			break;
+            
+         case 6:
+
+            cutScene(levelSixQ[curLevelVal]);
+			break;
+            
+        case 7:
+
+            cutScene(levelSevenQ[curLevelVal]);
+			break;
+            
+        case 8:
+
+            cutScene(levelEightQ[curLevelVal]);
+			break;
+            
+        case 9:
+
+            cutScene(levelNineQ[curLevelVal]);
+			break;
+            
+        case 10:
+
+            cutScene(levelTenQ[curLevelVal]);
+			break;
+            
+        case 11:
+
+            cutScene(levelElevenQ[curLevelVal]);
+			break;
+            
+        case 12:
+
+            cutScene(levelTwelveQ[curLevelVal]);
+			break;
+    
+}
+    
+}
 
