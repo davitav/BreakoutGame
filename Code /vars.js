@@ -1,4 +1,4 @@
-var gameover, unpaused, user, treeImg;  //variables for gameplay
+var gameover, unpaused, user, treeImg, treeImgStrong;  //variables for gameplay
 
 var leo, tree, oldMan, bus, mop; //Sprites
 var crack; 
@@ -25,7 +25,7 @@ var simg1, simg2;
 var badStoryBoard = []; //bad cut scenes
 var bsimg1, bsimg2; 
 
-var bgInside;
+var bgInside, bgOutside;
 
 var timeOfYear; //summer = 0, winter = 50
 
@@ -77,27 +77,27 @@ var curLevelVal = 0;  //variable that progresses us to the other choise on the s
 
 
 var levelOneQ = [
-    "Your friend, the tree is withering. What do you do with your water??1",
-    "The tree gets more thirsty and calls you. But you hear a scream.",
-    "Tree revives and you hear a muffled scream."
+    "Your friend, the tree is withering. What do you do with your water?",
+    "The tree gets more thirsty and calls you. But you also hear a scream.",
+    "The tree revives and you hear a muffled scream."
 ];
 
 var levelTwoQ = [
-    "Tree revives and you hear a muffled scream.",
+    "The tree revives and you hear a muffled scream.",
     "The tree gets more thirsty and calls you. But you hear a scream.",
-    "Tree revives and you hear a muffled scream."
+    "The tree revives and you hear a muffled scream."
 ];
 
 var levelThreeQ = [
-    "Your tree is really thirsty and dying. It starts pulling you towards it. What do you do?3",
+    "Your tree is really thirsty - it's dying. It starts pulling you towards it. What do you do?",
     "You still can't see anything. The tree is pulling you. Do you water the tree or peek more?",
     "You still can't see. The tree is still pulling you. Do you water the tree or peek more?"
 ];
 
 var levelFourQ = [
-    "You hear louder screams from outside.",
-    "It's dark and the tree is strangling you with its hug. It wants to be watered. Screams are still going on. Do you peek out or water the tree",
-    "You hear louder screams from outside."
+    "You hear louder screams from outside. What do you do now?",
+    "It's dark and the tree is strangling you with its hug. It wants to be watered. The screams are still going on. Do you peek out or water the tree?",
+    "You hear louder screams from outside. What now?"
 ];
 
 var levelFiveQ = [
@@ -107,27 +107,27 @@ var levelFiveQ = [
 ];
 
 var levelSixQ = [
-    "The tree is relieved. It may need some pruning. Meanwhile you hear sharper screams!",
-    "While you were pruning, the screams become more human-like. The tree is already thirsty.",
-    "The tree is relieved. It may need some pruning. Meanwhile you hear sharper screams!"
+    "The tree is relieved. It may need some pruning. Meanwhile you hear sharper screams! What will you do?",
+    "While you were pruning, the screams became more human-like. The tree is already thirsty again though.",
+    "The tree is relieved. It may need some pruning. Meanwhile you hear even sharper screams!"
 ];
 
 var levelSevenQ = [
     "You start seeing silhouettes in the crack.",
     "The tree is fine. In the meantime you start hearing alarming human sounds.",
-    "It's dark and the tree is strangling you with its hug. It wants to be watered. Screams are still going on. Do you peek out or water the tree"
+    "It's dark and the tree is strangling you with its hug. It wants to be watered. Screams are still going on. Do you peek out or water the tree?"
 ];
 
 var levelEightQ = [
     "You can now see. You see an old man thrashing his limbs. After a closer look, you see a bus approaching the man and his foot is stuck. He might die! Meanwhile the tree grabs you again - it's time to water it.",
-    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable",
-    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable"
+    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable.",
+    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable."
 ];
 
 var levelNineQ = [
     "You expand the crack. The tree grabs you and starts pulling you forcefully. The old man might die. You drop a pair of shears as you're being dragged.",
-    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable",
-    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable"
+    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable.",
+    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable."
 ];
 
 var levelTenQ = [
@@ -138,8 +138,8 @@ var levelTenQ = [
 
 var levelElevenQ = [
     "You've broken through. You see a silhouette amidst fog. What do you do?",
-    "You hear a bus driving by and a loud scream. You feel someone grip your arm",
-    "You hear a bus driving by and a loud scream. You feel someone grip your arm"
+    "You hear a bus driving by and a loud scream. You feel someone grip your arm.",
+    "You hear a bus driving by and a loud scream. You feel someone grip your arm."
 ];
 
 var levelTwelveQ = [
@@ -284,7 +284,7 @@ var levelTenBad = [
 ];
 
 var levelElevenBad = [
-    "You've broken through. You see a silhouette amidst fog. What do you do?",
+    "You've broken through. You see a silhouette amidst fog. Will you push to silhouette or keep looking?",
     "You hear a bus driving by and a loud scream. You feel someone grip your arm",
     "You hear a bus driving by and a loud scream. You feel someone grip your arm"
 ];

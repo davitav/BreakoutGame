@@ -5,7 +5,6 @@ function collide(goodItem, badItem){  //function for collisions
           leo.position.x = width/2;  //reposition Leo
 
           life = life+15;
-          console.log(life);
           goodDecision = true;
           collisionOccured = true;         
           stopTimer = true;
@@ -31,6 +30,8 @@ function collide(goodItem, badItem){  //function for collisions
 
           collisionOccured = true;
           curLevelVal++;
+          treeChange();
+
            if(life=>30){
                 life = life - 30;}
           else{
@@ -53,11 +54,6 @@ function setMood(value){
 }
 
 function stateIs(){
-    
-    //if more than 3 choices, reconsider this
-    if (curLevelVal > 2){
-        curLevelVal = 0;
-    }
     
     transitionCut()
     
@@ -147,6 +143,10 @@ function levelCase(textN){
     collide(goodItemsWorld1[goodValue-1][curLevelVal], badItemsWorld1[goodValue-1][curLevelVal]);  //collide function
 
     if(badDecision == true){
+        if (curLevelVal === 3){       
+            curLevelVal = 0;
+    }
+        
         console.log("Bad Decision!");
         drawOnce = false;    
 
@@ -155,7 +155,6 @@ function levelCase(textN){
         //resetAllDrawBools();
     }  
     else if (goodDecision == true){
-        console.log("Good Decision!");
         drawOnce = false;    
 
         //function that triggers the animation with the argument that calls the specific animation
@@ -174,7 +173,7 @@ function triggerAnimation(animVal, emotion){
     if (emotion == 'good'){
         //image(storyBoard[animval], 0, 0, width, height);
         
-        image(story1, 0, 0, width, height);
+        //image(story1, 0, 0, width, height);
         background(0);
         
         textSize(36);
@@ -195,7 +194,7 @@ function triggerAnimation(animVal, emotion){
     else if (emotion == 'bad'){
         
         //image(badStoryBoard[animval], 0, 0, width, height);
-        image(story1, 0, 0, width, height);
+        //image(story1, 0, 0, width, height);
         
         background(0);
         
@@ -220,7 +219,7 @@ function triggerAnimation(animVal, emotion){
     
     else if (emotion == 'timelapse'){
         
-        image(story1, 0, 0, width, height);
+        //image(story1, 0, 0, width, height);
         
         background(0);
         
@@ -256,21 +255,26 @@ function updatePosition(){
         }
         
         if (keyDown(RIGHT_ARROW) && unpaused){//user steer right
+            //tint(0, 153, 204);  // Tint blue
             leo.changeAnimation("right");
-
+            
             leo.position.x = leo.position.x + sliderVal;    
-
+            
         }
     
-    
+        //noTint();
       if(keyWentDown(82)){   //restarting if prompted by user
             if (confirm('Are you sure you want to restart?')) {
             //restart
+                goodValue=0;
+                curLevelVal=0;
+                treeChange();
                 startScreen();
                 leo.position.x = width/2;
-
+                
+                
                 newGame()
-                resetAllDrawBools();
+                
                 } else {
             // keep going!
                 }               
@@ -291,8 +295,13 @@ function lifeDisplay(){
     fill(60);
     rect(width/2-100, 30, 200, 40);
     if(80<=life && life<=120){
+        
         fill(255, 175, 10);
+        text("O.K.", width/2, 20);
+        
         rect(width/2-100, 30, life, 40);
+        
+    
         
         fastbreathing.stop();
 
@@ -305,8 +314,14 @@ function lifeDisplay(){
     }
     
     else if(life>=80){
+        
         fill(0, 230, 70);
+        text("Happy", width/2, 20);
+        
         rect(width/2-100, 30, life, 40);
+        
+        
+
         
         fastbreathing.stop();
   
@@ -319,10 +334,16 @@ function lifeDisplay(){
     }
     
     
-    else if(life<80){
+    else if(life<80){  
+                  
         fill(250, 80, 70); 
+        text("Depressed", width/2, 20);
+        
         rect(width/2-100, 30, life, 40);  
         soundStarted = true;
+        
+      
+
         
         setMood(1);
         
@@ -340,7 +361,7 @@ function lifeDisplay(){
 }
 
 function bg0(){
-        background(0);
+        //background(0);
     
 }
 
@@ -349,30 +370,40 @@ function bg0(){
 function bg1(){  //1st world
     
     if(world == 1){  //interior
-        background(0);
+        //background(0);
         image(bgInside, 0, 0, width, height);
         if(goodValue>10){
-            world++;
+            world=2;
         }
     }
     
-    else if(world == 2){  //exterior
+    if(world == 2){  //exterior
         bg2();
     }
 }
 
 function bg2(){  //2nd world
     //bg image
-    background(255);
+    image(bgOutside, 0, 0, width, height);
+    fill(0);
 }
 
 
 function newGame() {//resetting values for new game
     
-    resetAllDrawBools();
+    goodValue = 1;
     
+    curLevelVal = 0;
+    
+    startScreen();
+    
+    //resetAllDrawBools();
+    
+    world = 1;
     bg1();
     
+    proceed();
+
     text("hello", 100, 100);
     gameover=false;
 
@@ -382,13 +413,16 @@ function newGame() {//resetting values for new game
     
     boost = 100;
     
-    goodValue = 1;
+   
     
     leo=createSprite(width/2,400,50,50); //leo sprite
         
     leo.addAnimation("right", "data/leo_right01.png", "data/leo_right01.png"); 
 
     leo.addAnimation("left", "data/leo_left01.png", "data/leo_left01.png");
+    
+    startScreen();
+
      
           
 }
@@ -401,6 +435,9 @@ function resetAllDrawBools(){
     stopTimer = false;
     
     collisionOccured = false;  //reset collision bool
+    
+    setTime(25);
+
 }
 
 function keepInBorders(){  //constraining leo
@@ -426,7 +463,7 @@ function runTimer(){
     else{
         if (timer > timeLimit){
             //console.log("Time ran out");
-            drawOnce = false;
+            //drawOnce = false;
             runTheTimer = false;
             timeDecision = true;
             triggerAnimation(goodValue-1, 'timelapse'); 
@@ -457,24 +494,40 @@ function runTimer(){
 
 
 function transitionCut(){
+    
+    
+    if(goodValue==12){
+            function mousePressed(){
+                newGame();
+                }
+                }
+    
     //console.log("Mouse was pressed!");
     if(keyDown(32)){
+        proceed();
+}
+}
+
+
+function proceed(){
+    
     if (showingAnimation){
         //proceed to next level
         //console.log("Moving on to next level.");
         
         setTime(25);
         goodValue++;
+        treeChange();
+
 
         resetAllDrawBools();
         goodDecision = false;
         showingAnimation = false;
         
         leo.position.x = width/2;
-
         
         
-    }
+                }
     
     if(showingBadAnimation){
         
@@ -499,9 +552,13 @@ function transitionCut(){
         timeDecision = false;
         leo.position.x = width/2;
         leo.position.y = 400;
+        
+        treeChange();
+
 
     }
-}
+    
+    
 }
 
 function startScreen(){
@@ -521,6 +578,20 @@ function startScreen(){
     
 }
 
+function treeChange(){
+    
+    if(curLevelVal===0 && goodValue===2  || curLevelVal===2 && goodValue===2 || curLevelVal===0 && goodValue===4 || curLevelVal===0 && goodValue===6 || curLevelVal===2 && goodValue===6 || curLevelVal===1 && goodValue===8 || curLevelVal===2 && goodValue===8 || curLevelVal===1 && goodValue===9 || curLevelVal===2 && goodValue===9){
+        tree.changeImage("strong");
+}
+
+    else{
+        tree.changeImage("weak");
+
+    
+    }
+    
+}
+
 function windowResized() {
 //  resizeCanvas(windowWidth, windowHeight);
     
@@ -528,7 +599,7 @@ function windowResized() {
  
 function cutScene(textM){
     
-    background(0);
+    //background(0);
     text(textM, width/2, 150);  
     
 }
@@ -591,10 +662,41 @@ function cutScenePlacing(){
             
         case 12:
 
-            cutScene(levelTwelveQ[curLevelVal]);
+            //cutScene(levelTwelveQ[curLevelVal]);
+            //background(0);
+            fill(255);
+            text("You won. Leo takes the first step to run towards the cave, but spots his own reflection on a storefront glass. He stops to look at his reflection. He slowly moves his hand across his face and realizes the scar is gone, wrinkles are gone and his skin color is back to normal. Leo’s eyes light up and he starts happily jumping in place. Wow, I’m here, I’m doing it.", width/2, height/2);
 			break;
+            
     
 }
     
 }
+
+
+/*bugs
+
+restart not working
+
+format text 
+
+FONT 
+
+*/
+
+/*Master to do list
+updating images PRIORITY
+format text PRIORITY
+add background 2 PRIORITY
+sketch cut scenes 
+add denouement scene at the end  PRIORITY
+add links at the end of the game PRIORITY
+tree changes its look when it's relieved PRIORITY  - CHECK
+
+
+if game over: what does it mean/ some of the decisions you made for leo 
+weren't helpful, you should go back and give another try 
+how to restart from game over 
+
+*/
 

@@ -4,7 +4,8 @@ function preload(){
     
     startImg = loadImage("data/start.png");
 
-    treeImg = loadImage("data/balloon2.png");
+    treeImg = loadImage("data/tree_weak.png");
+    treeImgStrong = loadImage("data/tree_strong.png");
     crackImg = loadImage("data/balloon3.png");
         
     leoRight = loadImage("data/leo_right01.png");
@@ -15,6 +16,9 @@ function preload(){
 
  
     bgInside = loadImage("data/bgInside.png");
+    
+    bgOutside = loadImage("data/bgOutside.png");
+
 
 }
 
@@ -22,7 +26,7 @@ function preload(){
 function setup(){
         
     
-    tree = createSprite(windowWidth/12,500,300,250);  //setting up sprites, their images
+    tree = createSprite(windowWidth/80, 100, 300,250);  //setting up sprites, their images
     crack = createSprite(windowWidth-windowWidth/12,500,300,250);
     
     toy = createSprite(windowWidth-windowWidth/12,500,300,250);
@@ -31,8 +35,11 @@ function setup(){
     
     branch = createSprite(width-width/12,400,300,250);
     
+    tree.addImage("weak", treeImg);
+    tree.addImage("strong", treeImgStrong);
+
     
-    tree.addImage("tree", treeImg);
+    
     crack.addImage("crack", crackImg);
     toy.addImage("tree", treeImg);
     
@@ -224,6 +231,10 @@ function setup(){
 
 function draw(){
     
+    if (curLevelVal > 2){
+        curLevelVal = 0;
+    }
+    
     sliderVal = slider.value();
     
     if(gameover && keyWentDown(ENTER)){
@@ -247,15 +258,29 @@ function draw(){
         camera.off();//background image is still
         camera.on();
     
+        /*if(life<110){
+            if(millis()%200 > 0 && millis()%200 < 50){
+                tint(0, 153, 204);  // Tint blue
+            }
+        }*/
+        
         drawSprite(leo);
+        
+        //noTint();
                 
         textSize(30);
+        
+        /*if(life<110){
+                tint(0, 153, 204);  // Tint blue   
+            }*/
+        
+        
         if(life<50){
-            gameover=true;
+            //gameover=true;
             
             background(0);
 
-            text("Game over", width/2, height/2);
+            text("Game over. Some of the decisions you made for leo were not helpful, you should go back. Press R to restart.", width/2, height/2);
         }
         
 
