@@ -449,7 +449,7 @@ function newGame() {//resetting values for new game
         
     leo.addAnimation("right", "data/walk/walk_000.png", "data/walk/walk_047.png"); 
 
-    leo.addAnimation("left", "data/walk02/walk_000.png", "data/walk/walk_047.png")
+    leo.addAnimation("left", "data/walk02/walk_000.png", "data/walk02/walk_047.png");
     
     setTime(25);
     
