@@ -5,13 +5,15 @@ function collide(goodItem, badItem){  //function for collisions
           leo.position.x = width/2;  //reposition Leo
 
           life = life+15;
+          if(life>200){
+              life=200;
+          }
           goodDecision = true;
           collisionOccured = true;         
           stopTimer = true;
           curLevelVal = 0;
         
-          cutSceneValue++;
-                   
+          cutSceneValue++;  
              
           if(life<=170){
                 life = life + 30;}
@@ -57,66 +59,92 @@ function stateIs(){
     
     transitionCut()
     
-    bg1();
     
     switch(goodValue){
 		case 1:
+            bg1();
+
             levelCase(levelOneQ[curLevelVal]);         
 			break; 
                    
 		case 2:
+            bg1();
+
             levelCase(levelTwoQ[curLevelVal]);
 			break;
             
 		case 3:
+            bg1();
+
            
             levelCase(levelThreeQ[curLevelVal]);    
 			break;
             
 		case 4:	
+            bg1();
 
             levelCase(levelFourQ[curLevelVal]);
 			break;
             
         case 5:
+            bg1();
+
             console.log(curLevelVal);
 
             levelCase(levelFiveQ[curLevelVal]);
 			break;
             
          case 6:
+            bg1();
+
 
             levelCase(levelSixQ[curLevelVal]);
 			break;
             
         case 7:
+            bg1();
+
 
             levelCase(levelSevenQ[curLevelVal]);
 			break;
             
         case 8:
+            bg1();
+
 
             levelCase(levelEightQ[curLevelVal]);
 			break;
             
         case 9:
+            bg1();
+
 
             levelCase(levelNineQ[curLevelVal]);
 			break;
             
         case 10:
+            bg1();
+
 
             levelCase(levelTenQ[curLevelVal]);
 			break;
             
         case 11:
+            bg1();
+
 
             levelCase(levelElevenQ[curLevelVal]);
 			break;
             
         case 12:
 
-            levelCase(levelTwelveQ[curLevelVal]);
+            //levelCase(levelTwelveQ[curLevelVal]);
+            leo.remove();
+            image(endImg, 0, 0, windowWidth, windowHeight);
+            fill(0);
+            cutScenePlacing()
+            gameover=true;
+            console.log("startImg");
 			break;
             
     	}   
@@ -127,12 +155,12 @@ function levelCase(textN){
         drawOnce = true;
     }
     textSize(20);
-    text(textN, width/2, 150);
 
-    //console.log("About to draw the sprite");
     drawSprite(goodItemsWorld1[goodValue-1][curLevelVal]);
     drawSprite(badItemsWorld1[goodValue-1][curLevelVal]);
-    //console.log("Drew the sprite");
+    
+    text(textN, width/2-150, 100, 300, 75);
+
     
     if(runTheTimer){
         runTimer();
@@ -415,11 +443,15 @@ function newGame() {//resetting values for new game
     
    
     
-    leo=createSprite(width/2,400,50,50); //leo sprite
+    leo=createSprite(width/2-50,300,50,50); //leo sprite
+    
+    //leo.addAnimation("still", "data/walk/walk_000.png", "data/walk/walk_000.png"); 
         
-    leo.addAnimation("right", "data/leo_right01.png", "data/leo_right01.png"); 
+    leo.addAnimation("right", "data/walk/walk_000.png", "data/walk/walk_047.png"); 
 
-    leo.addAnimation("left", "data/leo_left01.png", "data/leo_left01.png");
+    leo.addAnimation("left", "data/walk02/walk_000.png", "data/walk/walk_047.png")
+    
+    setTime(25);
     
     startScreen();
 
@@ -567,11 +599,11 @@ function startScreen(){
     fill(255);
     textAlign(CENTER);
     textSize(24);
-    text("Breakout, the game", windowWidth/2, windowHeight/2-50);
+    text("Breakout, the game", windowWidth/2, 35);
     
     textSize(18);
-    text("Press Enter to start", windowWidth/2, windowHeight/2);
-    text("Press R to restart and P to Pause", windowWidth/2, windowHeight/2+50);
+    text("Press Enter to start", windowWidth/2, windowHeight/2+200);
+    text("Press R to restart", windowWidth/2, windowHeight/2+250);
     
     curLevelVal = 0;
     goodValue = 1;
@@ -600,7 +632,11 @@ function windowResized() {
 function cutScene(textM){
     
     //background(0);
-    text(textM, width/2, 150);  
+    text(textM, width/2-320, 150, 600, 75); 
+        
+    text("Press space to continue", width/2, 450);  
+
+    
     
 }
 
@@ -664,8 +700,8 @@ function cutScenePlacing(){
 
             //cutScene(levelTwelveQ[curLevelVal]);
             //background(0);
-            fill(255);
-            text("You won. Leo takes the first step to run towards the cave, but spots his own reflection on a storefront glass. He stops to look at his reflection. He slowly moves his hand across his face and realizes the scar is gone, wrinkles are gone and his skin color is back to normal. Leo’s eyes light up and he starts happily jumping in place. Wow, I’m here, I’m doing it.", width/2, height/2);
+            fill(0);
+            text("You won. Leo takes the first step to run towards the cave, but spots his own reflection on a storefront glass. He stops to look at his reflection. He slowly moves his hand across his face and realizes the scar is gone, wrinkles are gone and his skin color is back to normal. Leo’s eyes light up and he starts happily jumping in place. Wow, I’m here, I’m doing it.", width/2-150, 100, 300, 75);
 			break;
             
     
@@ -691,8 +727,6 @@ add background 2 PRIORITY
 sketch cut scenes 
 add denouement scene at the end  PRIORITY
 add links at the end of the game PRIORITY
-tree changes its look when it's relieved PRIORITY  - CHECK
-
 
 if game over: what does it mean/ some of the decisions you made for leo 
 weren't helpful, you should go back and give another try 

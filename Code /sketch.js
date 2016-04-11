@@ -2,11 +2,13 @@
 function preload(){
     
     
-    startImg = loadImage("data/start.png");
+    startImg = loadImage("data/start01.png");
+    
+    endImg = loadImage("data/start.png");
 
     treeImg = loadImage("data/tree_weak.png");
     treeImgStrong = loadImage("data/tree_strong.png");
-    crackImg = loadImage("data/balloon3.png");
+    crackImg = loadImage("data/crack.png");
         
     leoRight = loadImage("data/leo_right01.png");
     
@@ -18,6 +20,8 @@ function preload(){
     bgInside = loadImage("data/bgInside.png");
     
     bgOutside = loadImage("data/bgOutside.png");
+    
+    
 
 
 }
@@ -27,13 +31,15 @@ function setup(){
         
     
     tree = createSprite(windowWidth/80, 100, 300,250);  //setting up sprites, their images
-    crack = createSprite(windowWidth-windowWidth/12,500,300,250);
+    crack = createSprite(windowWidth-windowWidth/12,300,300,250);
     
     toy = createSprite(windowWidth-windowWidth/12,500,300,250);
 
     body = createSprite(width-width/12,400,300,250);
     
     branch = createSprite(width-width/12,400,300,250);
+    
+    
     
     tree.addImage("weak", treeImg);
     tree.addImage("strong", treeImgStrong);
@@ -83,11 +89,11 @@ function setup(){
     
     /////////////////////
     goodItemsLevel1.add(tree);
-    goodItemsLevel1.add(crack);
+    goodItemsLevel1.add(tree);
     goodItemsLevel1.add(crack);
 
     badItemsLevel1.add(toy);
-    badItemsLevel1.add(tree);
+    badItemsLevel1.add(crack);
     badItemsLevel1.add(tree);
     
     ////////////////////////
@@ -218,7 +224,7 @@ function setup(){
 
     itemsWorld1 = [mop, crack];  
 
-    slider = createSlider(0, 20, 10);
+    slider = createSlider(0, 20, 3);
     slider.position(10, 50);
     slider.style('width', '100px');
     
@@ -237,6 +243,12 @@ function draw(){
     
     sliderVal = slider.value();
     
+    /*if(gameover){
+        image(endImg, 0, 0);
+        console.log("Over");
+        
+    }*/
+    
     if(gameover && keyWentDown(ENTER)){
        
         newGame();}    
@@ -245,9 +257,8 @@ function draw(){
         
         keepInBorders();  //constraining leo
         
-        bg1();
-        
-        
+        //bg1();
+         
         updatePosition(); //moving Leo
             
         stateIs();     
@@ -271,7 +282,7 @@ function draw(){
         textSize(30);
         
         /*if(life<110){
-                tint(0, 153, 204);  // Tint blue   
+                filter(GRAY);  // Tint blue   
             }*/
         
         

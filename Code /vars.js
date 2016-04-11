@@ -48,6 +48,8 @@ var story1;
 
 var startImg;
 
+var endImg;
+
 var n = 0;
 
 var allSprites;
@@ -77,13 +79,13 @@ var curLevelVal = 0;  //variable that progresses us to the other choise on the s
 
 
 var levelOneQ = [
-    "Your friend, the tree is withering. What do you do with your water?",
-    "The tree gets more thirsty and calls you. But you also hear a scream.",
-    "The tree revives and you hear a muffled scream."
+    "Your friend, the tree is withering. With your water, do you water your friend or mop the floor?",
+    "The tree gets more thirsty and calls you. But you also hear a scream from outside.",
+    "The tree revives and you hear another muffled scream."
 ];
 
 var levelTwoQ = [
-    "The tree revives and you hear a muffled scream.",
+    "The tree revives and you hear a muffled scream from outside. Will you check out the outside through the crack or prune the tree?",
     "The tree gets more thirsty and calls you. But you hear a scream.",
     "The tree revives and you hear a muffled scream."
 ];
@@ -113,7 +115,7 @@ var levelSixQ = [
 ];
 
 var levelSevenQ = [
-    "You start seeing silhouettes in the crack.",
+    "You start seeing silhouettes in the crack. Keep looking closer or hug the tree?",
     "The tree is fine. In the meantime you start hearing alarming human sounds.",
     "It's dark and the tree is strangling you with its hug. It wants to be watered. Screams are still going on. Do you peek out or water the tree?"
 ];
@@ -125,9 +127,9 @@ var levelEightQ = [
 ];
 
 var levelNineQ = [
-    "You expand the crack. The tree grabs you and starts pulling you forcefully. The old man might die. You drop a pair of shears as you're being dragged.",
-    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable.",
-    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable."
+    "You expand the crack. The tree grabs you and starts pulling you forcefully. The old man might die. Go to the crack if you want to rip the tree branch or go to the tree to water it.",
+    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable. What now?",
+    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable. What now?"
 ];
 
 var levelTenQ = [
@@ -186,7 +188,7 @@ var levelSixGood = [
 ];
 
 var levelSevenGood = [
-    "You start seeing silhouettes in the crack.",
+    "You start seeing silhouettes in the crack. Keep looking closer or hug the tree?",
     "The tree is fine. In the meantime you start hearing alarming human sounds.",
     "It's dark and the tree is strangling you with its hug. It wants to be watered. Screams are still going on. Do you peek out or water the tree"
 ];
