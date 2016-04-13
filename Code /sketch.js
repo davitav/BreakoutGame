@@ -29,7 +29,7 @@ function preload(){
 
 function setup(){
         
-    
+    textFont("Futura");
     tree = createSprite(windowWidth/80, 100, 300,250);  //setting up sprites, their images
     crack = createSprite(windowWidth-windowWidth/12,300,300,250);
     
@@ -250,7 +250,11 @@ function draw(){
     
     if(gameover && keyWentDown(ENTER)){
        
-        newGame();}    
+        newGame();
+    }
+//    else if (gameover){
+//        startScreen();
+//    }
 
     if(!gameover) {
         
@@ -258,7 +262,6 @@ function draw(){
         
         //bg1();
          
-        updatePosition(); //moving Leo
             
         stateIs();     
     
@@ -290,10 +293,11 @@ function draw(){
             
             background(0);
 
-            text("Game over. Some of the decisions you made for leo were not helpful, you should go back. Press R to restart.", width/2, height/2);
+            text("Game over. Some of the decisions you made for leo were not helpful, you should go back. Press R to restart.", width/2, height/2, 300, 200);
         }
         
 
+        updatePosition(); //moving Leo
     }
     
                 

@@ -229,12 +229,12 @@
             </timeline>
             <timeline id="6" name="right_leg">
                 <key id="0" spin="0">
-                    <object folder="0" file="5" x="75.848485" y="-339.393939" angle="0"/>
+                    <object folder="0" file="5" x="75.848485" y="-344.585297" angle="0" scale_y="0.856401"/>
                 </key>
             </timeline>
             <timeline id="7" name="right_leg copy">
                 <key id="0" spin="0">
-                    <object folder="0" file="7" x="-8.060606" y="-339.393939" angle="0"/>
+                    <object folder="0" file="7" x="-8.060606" y="-347.792546" angle="0" scale_y="0.84825"/>
                 </key>
             </timeline>
             <timeline id="8" obj="0" name="bone_000" object_type="bone">

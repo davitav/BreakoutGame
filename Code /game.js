@@ -57,7 +57,7 @@ function setMood(value){
 
 function stateIs(){
     
-    transitionCut()
+    transitionCut();
     
     
     switch(goodValue){
@@ -159,6 +159,10 @@ function levelCase(textN){
     drawSprite(goodItemsWorld1[goodValue-1][curLevelVal]);
     drawSprite(badItemsWorld1[goodValue-1][curLevelVal]);
     
+    fill(30);
+    
+    rect(width/2-160, 90, 320, 145);
+    fill(255);
     text(textN, width/2-150, 100, 300, 125);
 
     
@@ -175,7 +179,7 @@ function levelCase(textN){
             curLevelVal = 0;
     }
         
-        console.log("Bad Decision!");
+        //console.log("Bad Decision!");
         drawOnce = false;    
 
         triggerAnimation(goodValue-1, 'bad');
@@ -197,7 +201,10 @@ function levelCase(textN){
 
 
 function triggerAnimation(animVal, emotion){
-
+    runTheTimer = false;
+    stopTimer = true;
+    
+    
     if (emotion == 'good'){
         //image(storyBoard[animval], 0, 0, width, height);
         
@@ -314,14 +321,15 @@ function updatePosition(){
       if(keyWentDown(82)){   //restarting if prompted by user
             if (confirm('Are you sure you want to restart?')) {
             //restart
-                goodValue=0;
-                curLevelVal=0;
+                gameover=true;
+               // goodValue=0;
+                //curLevelVal=0;
                 treeChange();
                 startScreen();
-                leo.position.x = width/2;
+               // leo.position.x = width/2;
                 
                 
-                newGame()
+                //newGame()
                 
                 } else {
             // keep going!
@@ -614,7 +622,7 @@ function proceed(){
         showingTimeAnimation = false;
         timeDecision = false;
         leo.position.x = width/2;
-        leo.position.y = 400;
+        leo.position.y = 300;
         
         treeChange();
 
@@ -638,6 +646,8 @@ function startScreen(){
     
     curLevelVal = 0;
     goodValue = 1;
+    
+    console.log("Done with start screen");
     
 }
 
@@ -753,13 +763,15 @@ FONT
 
 /*Master to do list
 
-DONT OFFER CHOICE IN FIRST:
-first you water the tree, then you notice the crack 
+facial expressions
 
-and then you start making choices 
+sound 
 
+design of pages
 
 bring in more contrast with items that are choices 
+
+design static interstitials? That evoke mood rather than specific action
 
 
 updating images PRIORITY
