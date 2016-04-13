@@ -34,7 +34,7 @@ function collide(goodItem, badItem){  //function for collisions
           curLevelVal++;
           treeChange();
 
-           if(life=>30){
+           if(life>=30){
                 life = life - 30;}
           else{
                 life = life;
@@ -159,13 +159,13 @@ function levelCase(textN){
     drawSprite(goodItemsWorld1[goodValue-1][curLevelVal]);
     drawSprite(badItemsWorld1[goodValue-1][curLevelVal]);
     
-    text(textN, width/2-150, 100, 300, 75);
+    text(textN, width/2-150, 100, 300, 125);
 
     
     if(runTheTimer){
         runTimer();
         fill(255);
-        text(startTime - Math.floor(timer/60),width/2,200); 
+        text(startTime - Math.floor(timer/60),width/2,275); 
     }
     
     collide(goodItemsWorld1[goodValue-1][curLevelVal], badItemsWorld1[goodValue-1][curLevelVal]);  //collide function
@@ -246,9 +246,7 @@ function triggerAnimation(animVal, emotion){
     }
     
     else if (emotion == 'timelapse'){
-        
-        //image(story1, 0, 0, width, height);
-        
+                
         background(0);
         
         textSize(40);
@@ -272,6 +270,22 @@ function triggerAnimation(animVal, emotion){
 }
 
 
+function movementAnim(){
+     if (keyDown(LEFT_ARROW) && unpaused){//user steer left
+            leo.changeAnimation("left");
+
+         
+
+        }
+        
+    else if (keyDown(RIGHT_ARROW) && unpaused){//user steer right
+            //tint(0, 153, 204);  // Tint blue
+            leo.changeAnimation("right");
+                        
+        }
+    
+}
+
 function updatePosition(){
     
      if (keyDown(LEFT_ARROW) && unpaused){//user steer left
@@ -282,13 +296,19 @@ function updatePosition(){
 
         }
         
-        if (keyDown(RIGHT_ARROW) && unpaused){//user steer right
+    else if (keyDown(RIGHT_ARROW) && unpaused){//user steer right
             //tint(0, 153, 204);  // Tint blue
             leo.changeAnimation("right");
             
             leo.position.x = leo.position.x + sliderVal;    
             
         }
+
+    
+    else{
+            leo.changeAnimation("still");
+
+    }
     
         //noTint();
       if(keyWentDown(82)){   //restarting if prompted by user
@@ -348,8 +368,12 @@ function lifeDisplay(){
         
         rect(width/2-100, 30, life, 40);
         
+        leo.changeAnimation("still");
         
+        movementAnim();
 
+
+        
         
         fastbreathing.stop();
   
@@ -366,6 +390,13 @@ function lifeDisplay(){
                   
         fill(250, 80, 70); 
         text("Depressed", width/2, 20);
+        
+        leo.changeAnimation("depressed");
+        
+        //updatePosition()
+        
+        movementAnim();
+
         
         rect(width/2-100, 30, life, 40);  
         soundStarted = true;
@@ -387,12 +418,6 @@ function lifeDisplay(){
     rect(width/2-100, 30, life, 40);
 
 }
-
-function bg0(){
-        //background(0);
-    
-}
-
 
 
 function bg1(){  //1st world
@@ -445,11 +470,17 @@ function newGame() {//resetting values for new game
     
     leo=createSprite(width/2-50,300,50,50); //leo sprite
     
-    //leo.addAnimation("still", "data/walk/walk_000.png", "data/walk/walk_000.png"); 
-        
-    leo.addAnimation("right", "data/walk/walk_000.png", "data/walk/walk_047.png"); 
+       
+    leo.addAnimation("right", "data/walkright/walk_000.png", "data/walkright/walk_047.png"); 
+    
+    leo.addAnimation("left", "data/walkleft/walk_000.png", "data/walkleft/walk_047.png");
 
-    leo.addAnimation("left", "data/walk02/walk_000.png", "data/walk02/walk_047.png");
+    leo.addAnimation("still", "data/breathRelaxed/breathR_000.png", "data/breathRelaxed/breathR_023.png"); 
+    
+    leo.addAnimation("depressed", "data/breathDepressed/breathD_000.png", "data/breathDepressed/breathD_015.png"); 
+
+
+
     
     setTime(25);
     
@@ -632,7 +663,7 @@ function windowResized() {
 function cutScene(textM){
     
     //background(0);
-    text(textM, width/2-320, 150, 600, 75); 
+    text(textM, width/2-320, 150, 600, 175); 
         
     text("Press space to continue", width/2, 450);  
 
@@ -721,12 +752,27 @@ FONT
 */
 
 /*Master to do list
+
+DONT OFFER CHOICE IN FIRST:
+first you water the tree, then you notice the crack 
+
+and then you start making choices 
+
+
+bring in more contrast with items that are choices 
+
+
 updating images PRIORITY
 format text PRIORITY
 add background 2 PRIORITY
 sketch cut scenes 
 add denouement scene at the end  PRIORITY
 add links at the end of the game PRIORITY
+
+visuals in interstitials where necessary 
+
+
+frontal breathe animation 
 
 if game over: what does it mean/ some of the decisions you made for leo 
 weren't helpful, you should go back and give another try 

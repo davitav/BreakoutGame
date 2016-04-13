@@ -79,13 +79,13 @@ var curLevelVal = 0;  //variable that progresses us to the other choise on the s
 
 
 var levelOneQ = [
-    "Your friend, the tree is withering. With your water, do you water your friend or mop the floor?",
+    "Your friend, the tree is withering. Press the left arrow key to go closer to the tree and water it before the timer runs out.",
     "The tree gets more thirsty and calls you. But you also hear a scream from outside.",
     "The tree revives and you hear another muffled scream."
 ];
 
 var levelTwoQ = [
-    "The tree revives and you hear a muffled scream from outside. Will you check out the outside through the crack or prune the tree?",
+    "The tree revives. You hear a muffled scream from outside. Will you check out the outside through the crack or prune the tree?",
     "The tree gets more thirsty and calls you. But you hear a scream.",
     "The tree revives and you hear a muffled scream."
 ];

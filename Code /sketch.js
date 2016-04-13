@@ -215,7 +215,6 @@ function setup(){
 
 
     createCanvas(windowWidth, windowHeight);
-    bg0(); 
     
     gameover=true;//start off as true in order to have user prompt when to begin
     unpaused=true;//game starts out not paused
