@@ -1,4 +1,4 @@
-var gameover, unpaused, user, treeImg, treeImgStrong;  //variables for gameplay
+var gameover, unpaused, user, treeImg, treeImgStrong, hideImg;  //variables for gameplay
 
 var leo, tree, oldMan, bus, mop; //Sprites
 var crack; 
@@ -33,7 +33,7 @@ var drawOnce = false;
 
 var collisionOccured = false;
 
-var crack, body, toy, branch, bus, stand; //more sprites
+var crack, body, toy, branch, bus, stand, hide; //more sprites
 
 var slider, sliderVal;
 
@@ -85,45 +85,45 @@ var levelOneQ = [
 ];
 
 var levelTwoQ = [
-    "The tree revives. You hear a muffled scream from outside. Will you check out the outside through the crack or prune the tree?",
-    "The tree gets more thirsty and calls you. But you hear a scream.",
-    "The tree revives and you hear a muffled scream."
+    "The tree revives. You hear a muffled scream from outside. Will you check out the outside through a crack or prune the tree?",
+    "The tree gets more thirsty and calls you. But you still hear the scream. Will you check out the outside through a crack or prune the tree?",
+    "The tree revives and you still hear a muffled scream. Will you check out the outside through a crack or prune the tree?"
 ];
 
 var levelThreeQ = [
-    "Your tree is really thirsty - it's dying. It starts pulling you towards it. What do you do?",
-    "You still can't see anything. The tree is pulling you. Do you water the tree or peek more?",
+    "It's too bright to see. Your tree is really thirsty. Will you keep looking or water it?",
+    "You still can't see anything. The tree is now pulling you. Do you water the tree or peek more?",
     "You still can't see. The tree is still pulling you. Do you water the tree or peek more?"
 ];
 
 var levelFourQ = [
-    "You hear louder screams from outside. What do you do now?",
+    "You hear louder screams from outside. Will you peek or keep taking care of the tree?",
     "It's dark and the tree is strangling you with its hug. It wants to be watered. The screams are still going on. Do you peek out or water the tree?",
     "You hear louder screams from outside. What now?"
 ];
 
 var levelFiveQ = [
-    "It's too bright to see. In the meantime the tree starts to drag you back as it needs water.",
-    "It's too bright to see. In the meantime the tree starts to drag you back as it needs water.",
-    "It's too bright to see. In the meantime the tree starts to drag you back as it needs water."
+    "It's too bright to see. In the meantime the tree starts to drag you back as it needs water. Go to the crack to keep looking, or to tree to water it.",
+    "It's too bright to see. In the meantime the tree starts to drag you back as it needs water. Go to the crack to keep looking, or to tree to water it.",
+    "It's too bright to see. In the meantime the tree starts to drag you back as it needs water. Go to the crack to keep looking, or to tree to water it."
 ];
 
 var levelSixQ = [
     "The tree is relieved. It may need some pruning. Meanwhile you hear sharper screams! What will you do?",
-    "While you were pruning, the screams became more human-like. The tree is already thirsty again though.",
-    "The tree is relieved. It may need some pruning. Meanwhile you hear even sharper screams!"
+    "While you were pruning, the screams became more human-like. The tree is already thirsty again though. Will you water or peek?",
+    "The tree is relieved. It may need some pruning. Meanwhile you hear even sharper screams! What now?"
 ];
 
 var levelSevenQ = [
-    "You start seeing silhouettes in the crack. Keep looking closer or hug the tree?",
+    "You start seeing silhouettes in the crack. Keep looking closer or water the tree?",
     "The tree is fine. In the meantime you start hearing alarming human sounds.",
-    "It's dark and the tree is strangling you with its hug. It wants to be watered. Screams are still going on. Do you peek out or water the tree?"
+    "The tree is strangling you with its hug. It wants to be watered. Screams are still going on. Do you peek out or water the tree?"
 ];
 
 var levelEightQ = [
-    "You can now see. You see an old man thrashing his limbs. After a closer look, you see a bus approaching the man and his foot is stuck. He might die! Meanwhile the tree grabs you again - it's time to water it.",
-    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable.",
-    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable."
+    "You can now see. You see an old man thrashing his limbs. After a closer look, you see a bus approaching the man - his foot is stuck. He might die! Meanwhile the tree wants you to water it. Will you water the tree or try to expand the crack?",
+    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable. Water the tree or expand the crack?",
+    "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable. Water the tree or expand the crack?"
 ];
 
 var levelNineQ = [
@@ -133,19 +133,19 @@ var levelNineQ = [
 ];
 
 var levelTenQ = [
-    "Having cut the tree you now need to break through the wall.",
-    "The branch isn't strong enough. Do you use your body or try with the shears?",
-    "The shears break. What now?"
+    "Having cut the tree you now need to break through the wall. Go to the tree to pick up a branch to break the wall or go to the crack to use your body.",
+    "The branch isn't strong enough. Do you use your body now?",
+    "The branch breaks. Will you use your body now?"
 ];
 
 var levelElevenQ = [
-    "You've broken through. You see a silhouette amidst fog. What do you do?",
-    "You hear a bus driving by and a loud scream. You feel someone grip your arm.",
-    "You hear a bus driving by and a loud scream. You feel someone grip your arm."
+    "You've broken through and can save the man. You see a silhouette amidst fog. Walk to the silhouette to give it a hand, or run left to hide?",
+    "You hear a bus driving by and a loud scream. You feel someone grip your arm. Do you help the silhouette or hide?",
+    "You hear a bus driving by and a loud scream. You feel someone grip your arm. Help the silhouette or hide?"
 ];
 
 var levelTwelveQ = [
-    "Ending in Storyboard form: Leo takes the first step to run towards the cave, but spots his own reflection on a storefront glass. He stops to look at his reflection. He slowly moves his hand across his face and realizes the scar is gone, wrinkles are gone and his skin color is back to normal. Leo’s eyes light up and he starts happily jumping in place. Wow, I’m here, I’m doing it."
+    "Leo slowly moves his hand across his face and realizes he has made it out. Congratulations on finishing your journey. Please press r to restart."
 ];
 
 

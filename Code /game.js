@@ -4,7 +4,7 @@ function collide(goodItem, badItem){  //function for collisions
           //text("Watering", 350, 200);
           leo.position.x = width/2;  //reposition Leo
 
-          life = life+15;
+          life = life+20;
           if(life>200){
               life=200;
           }
@@ -15,8 +15,8 @@ function collide(goodItem, badItem){  //function for collisions
         
           cutSceneValue++;  
              
-          if(life<=170){
-                life = life + 30;}
+          if(life<=170){ //placeholder
+                }
           else{
                 life = life;
           }
@@ -89,7 +89,7 @@ function stateIs(){
         case 5:
             bg1();
 
-            console.log(curLevelVal);
+            //console.log(curLevelVal);
 
             levelCase(levelFiveQ[curLevelVal]);
 			break;
@@ -154,22 +154,22 @@ function levelCase(textN){
     if (!drawOnce && !showingAnimation && !showingBadAnimation && !showingTimeAnimation){    
         drawOnce = true;
     }
-    textSize(20);
+    textSize(17);
 
     drawSprite(goodItemsWorld1[goodValue-1][curLevelVal]);
     drawSprite(badItemsWorld1[goodValue-1][curLevelVal]);
     
     fill(30);
     
-    rect(width/2-160, 90, 320, 145);
+    rect(width/2-160, 90, 320, 225);
     fill(255);
-    text(textN, width/2-150, 100, 300, 125);
+    text(textN, width/2-150, 100, 300, 205);
 
     
     if(runTheTimer){
         runTimer();
         fill(255);
-        text(startTime - Math.floor(timer/60),width/2,275); 
+        text(startTime - Math.floor(timer/60),width/2,285); 
     }
     
     collide(goodItemsWorld1[goodValue-1][curLevelVal], badItemsWorld1[goodValue-1][curLevelVal]);  //collide function
@@ -211,7 +211,7 @@ function triggerAnimation(animVal, emotion){
         //image(story1, 0, 0, width, height);
         background(0);
         
-        textSize(36);
+        textSize(32);
         cutScenePlacing();        
         fill(0,240, 50);
         textSize(26);
@@ -233,7 +233,7 @@ function triggerAnimation(animVal, emotion){
         
         background(0);
         
-        textSize(40);
+        textSize(32);
         cutScenePlacing();        
         
         fill(240, 20, 50);
@@ -298,7 +298,8 @@ function updatePosition(){
      if (keyDown(LEFT_ARROW) && unpaused){//user steer left
             leo.changeAnimation("left");
 
-            leo.position.x = leo.position.x - sliderVal;
+            leo.position.x = leo.position.x - 2;  //sliderVal
+            //leo.position.x = leo.position.x - sliderVal;  //sliderVal
          
 
         }
@@ -307,7 +308,7 @@ function updatePosition(){
             //tint(0, 153, 204);  // Tint blue
             leo.changeAnimation("right");
             
-            leo.position.x = leo.position.x + sliderVal;    
+            leo.position.x = leo.position.x + 2;    
             
         }
 
@@ -446,6 +447,9 @@ function bg1(){  //1st world
 function bg2(){  //2nd world
     //bg image
     image(bgOutside, 0, 0, width, height);
+    fill('rgba(215, 220, 225, 0.75)');
+    noStroke();
+    rect(0, 0, windowWidth, windowHeight);
     fill(0);
 }
 
@@ -485,7 +489,7 @@ function newGame() {//resetting values for new game
 
     leo.addAnimation("still", "data/breathRelaxed/breathR_000.png", "data/breathRelaxed/breathR_023.png"); 
     
-    leo.addAnimation("depressed", "data/breathDepressed/breathD_000.png", "data/breathDepressed/breathD_015.png"); 
+    leo.addAnimation("depressed", "data/breathDepressed/breathD_000.png", "data/breathDepressed/breathD_014.png"); 
 
 
 
@@ -673,9 +677,9 @@ function windowResized() {
 function cutScene(textM){
     
     //background(0);
-    text(textM, width/2-320, 150, 600, 175); 
+    text(textM, width/2-320, 150, 600, 455); 
         
-    text("Press space to continue", width/2, 450);  
+    text("Press space to continue", width/2, 550);  
 
     
     
@@ -742,7 +746,8 @@ function cutScenePlacing(){
             //cutScene(levelTwelveQ[curLevelVal]);
             //background(0);
             fill(0);
-            text("You won. Leo takes the first step to run towards the cave, but spots his own reflection on a storefront glass. He stops to look at his reflection. He slowly moves his hand across his face and realizes the scar is gone, wrinkles are gone and his skin color is back to normal. Leo’s eyes light up and he starts happily jumping in place. Wow, I’m here, I’m doing it.", width/2-150, 100, 300, 75);
+            textSize(20);
+            text("Congratulations, your journey is over. Leo slowly moves his hand across his face and realizes he has made it out. You helped Leo liberate himself.", width/2-250, 100, 500, 375);
 			break;
             
     

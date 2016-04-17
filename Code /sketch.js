@@ -9,6 +9,10 @@ function preload(){
     treeImg = loadImage("data/tree_weak.png");
     treeImgStrong = loadImage("data/tree_strong.png");
     crackImg = loadImage("data/crack.png");
+    
+    hideImg = loadImage("data/hide.png");
+    
+    bodyImg = loadImage("data/man.png");
         
     leoRight = loadImage("data/leo_right01.png");
     
@@ -30,14 +34,16 @@ function preload(){
 function setup(){
         
     textFont("Futura");
-    tree = createSprite(windowWidth/80, 100, 300,250);  //setting up sprites, their images
-    crack = createSprite(windowWidth-windowWidth/12,300,300,250);
+    tree = createSprite(windowWidth/220, 100, 300,250);  //setting up sprites, their images
+    crack = createSprite(windowWidth-windowWidth/6,300,300,250);
     
-    toy = createSprite(windowWidth-windowWidth/12,500,300,250);
+    toy = createSprite(windowWidth+windowWidth/12,500,300,250);
 
-    body = createSprite(width-width/12,400,300,250);
+    body = createSprite(1200,300,300,250);
     
     branch = createSprite(width-width/12,400,300,250);
+    
+    hide = createSprite(windowWidth/10, 500, 300,250);
     
     
     
@@ -47,7 +53,11 @@ function setup(){
     
     
     crack.addImage("crack", crackImg);
-    toy.addImage("tree", treeImg);
+    toy.addImage("crack", crackImg);
+    
+    hide.addImage("hide", hideImg);
+    
+    body.addImage("man", bodyImg);
     
     ////////////////////////////////
     
@@ -178,13 +188,13 @@ function setup(){
     badItemsLevel10.add(tree);
     
     ////////////////////////
-    goodItemsLevel11.add(crack);
-    goodItemsLevel11.add(crack);
-    goodItemsLevel11.add(tree);
+    goodItemsLevel11.add(body);
+    goodItemsLevel11.add(body);
+    goodItemsLevel11.add(body);
 
-    badItemsLevel11.add(tree);
-    badItemsLevel11.add(tree);
-    badItemsLevel11.add(crack);
+    badItemsLevel11.add(hide);
+    badItemsLevel11.add(hide);
+    badItemsLevel11.add(hide);
     
     //////////////////////////
     
