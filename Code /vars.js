@@ -1,7 +1,14 @@
 var gameover, unpaused, user, treeImg, treeImgStrong, hideImg;  //variables for gameplay
 
-var leo, tree, oldMan, bus, mop; //Sprites
-var crack; 
+var leo, tree, oldMan, bus, mop, limb; //Sprites
+var crack;
+
+var bgMusic; 
+var bgSound;
+
+var finishedGame;
+
+var limbImg;
 
 var objects; //group of object Sprites
 
@@ -37,7 +44,9 @@ var crack, body, toy, branch, bus, stand, hide; //more sprites
 
 var slider, sliderVal;
 
-var fastbreathing; //sounds
+var fastbreathing, timeTicking; //sounds
+var timeSound;
+
 
 var goodItemsWorld1, badItemsWorld1, goodItemsWorld2, badItemsWorld2; //groups to store objects from world 1 and 2
 
@@ -139,7 +148,7 @@ var levelTenQ = [
 ];
 
 var levelElevenQ = [
-    "You've broken through and can save the man. You see a silhouette amidst fog. Walk to the silhouette to give it a hand, or run left to hide?",
+    "You've broken through and can save the man. You see a silhouette amidst fog. Walk to the silhouette to give it a hand, or run left to hide in the box.",
     "You hear a bus driving by and a loud scream. You feel someone grip your arm. Do you help the silhouette or hide?",
     "You hear a bus driving by and a loud scream. You feel someone grip your arm. Help the silhouette or hide?"
 ];

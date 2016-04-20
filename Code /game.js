@@ -35,7 +35,7 @@ function collide(goodItem, badItem){  //function for collisions
           treeChange();
 
            if(life>=30){
-                life = life - 30;}
+                life = life - 40;}
           else{
                 life = life;
           }
@@ -58,7 +58,8 @@ function setMood(value){
 function stateIs(){
     
     transitionCut();
-    
+
+    treeChange();
     
     switch(goodValue){
 		case 1:
@@ -150,6 +151,7 @@ function stateIs(){
     	}   
 }
 
+
 function levelCase(textN){
     if (!drawOnce && !showingAnimation && !showingBadAnimation && !showingTimeAnimation){    
         drawOnce = true;
@@ -159,12 +161,23 @@ function levelCase(textN){
     drawSprite(goodItemsWorld1[goodValue-1][curLevelVal]);
     drawSprite(badItemsWorld1[goodValue-1][curLevelVal]);
     
+    if(goodValue===10){
+        drawSprite(limb);      
+    }
+    
     fill(30);
     
     rect(width/2-160, 90, 320, 225);
     fill(255);
     text(textN, width/2-150, 100, 300, 205);
+    
+    //timeTicking.playMode('restart');
 
+    if(timeSound){
+        timeTicking.loop();
+        timeSound = false;
+    }
+        
     
     if(runTheTimer){
         runTimer();
@@ -298,7 +311,7 @@ function updatePosition(){
      if (keyDown(LEFT_ARROW) && unpaused){//user steer left
             leo.changeAnimation("left");
 
-            leo.position.x = leo.position.x - 2;  //sliderVal
+            leo.position.x = leo.position.x - sliderVal;  //sliderVal
             //leo.position.x = leo.position.x - sliderVal;  //sliderVal
          
 
@@ -308,7 +321,7 @@ function updatePosition(){
             //tint(0, 153, 204);  // Tint blue
             leo.changeAnimation("right");
             
-            leo.position.x = leo.position.x + 2;    
+            leo.position.x = leo.position.x + sliderVal;    
             
         }
 
@@ -322,7 +335,10 @@ function updatePosition(){
       if(keyWentDown(82)){   //restarting if prompted by user
             if (confirm('Are you sure you want to restart?')) {
             //restart
+                timeTicking.stop();
+
                 gameover=true;
+                soundReset();
                // goodValue=0;
                 //curLevelVal=0;
                 treeChange();
@@ -570,6 +586,8 @@ function runTimer(){
 
 function transitionCut(){
     
+    //timeTicking.stop();
+    
     
     if(goodValue==12){
             function mousePressed(){
@@ -585,6 +603,8 @@ function transitionCut(){
 
 
 function proceed(){
+    
+    
     
     if (showingAnimation){
         //proceed to next level
@@ -667,6 +687,12 @@ function treeChange(){
     
     }
     
+    if(curLevelVal===0 && goodValue===9){
+        leo.changeAnimation("right");
+        leo.position.x = leo.position.x - 1;
+    }
+
+    
 }
 
 function windowResized() {
@@ -680,8 +706,30 @@ function cutScene(textM){
     text(textM, width/2-320, 150, 600, 455); 
         
     text("Press space to continue", width/2, 550);  
-
     
+}
+
+function soundReset(){
+    bgMusic.loop();
+    bgSound = false;
+            
+    timeSound = true;
+    
+}
+
+function keyPressed(){
+    if(finishedGame){
+        if(keyCode===82){
+            
+            soundReset();
+            
+            
+            gameover=true;
+            treeChange();
+            startScreen();
+            
+        }
+    }
     
 }
 
@@ -742,12 +790,16 @@ function cutScenePlacing(){
 			break;
             
         case 12:
+            
+            timeTicking.stop();
+            proceed();
 
-            //cutScene(levelTwelveQ[curLevelVal]);
-            //background(0);
+            finishedGame = true;
+            /*cutScene(levelTwelveQ[curLevelVal]);*/
             fill(0);
             textSize(20);
             text("Congratulations, your journey is over. Leo slowly moves his hand across his face and realizes he has made it out. You helped Leo liberate himself.", width/2-250, 100, 500, 375);
+            
 			break;
             
     
@@ -758,38 +810,13 @@ function cutScenePlacing(){
 
 /*bugs
 
-restart not working
+timer
 
-format text 
+sound
 
-FONT 
-
-*/
-
-/*Master to do list
-
-facial expressions
-
-sound 
-
-design of pages
-
-bring in more contrast with items that are choices 
-
-design static interstitials? That evoke mood rather than specific action
+website
 
 
-updating images PRIORITY
-format text PRIORITY
-add background 2 PRIORITY
-sketch cut scenes 
-add denouement scene at the end  PRIORITY
-add links at the end of the game PRIORITY
-
-visuals in interstitials where necessary 
-
-
-frontal breathe animation 
 
 if game over: what does it mean/ some of the decisions you made for leo 
 weren't helpful, you should go back and give another try 

@@ -1,6 +1,7 @@
 
 function preload(){
     
+    soundFormats('ogg', 'mp3');
     
     startImg = loadImage("data/start01.png");
     
@@ -16,7 +17,9 @@ function preload(){
         
     leoRight = loadImage("data/leo_right01.png");
     
-    story1 = loadImage("data/story2.jpg");   
+    story1 = loadImage("data/story2.jpg");  
+    
+    limbImg = loadImage("data/branch.png");  
 
     //storyboard = [simg1, simg2];
 
@@ -25,6 +28,13 @@ function preload(){
     
     bgOutside = loadImage("data/bgOutside.png");
     
+    //SOUNDS
+    fastbreathing = loadSound("./data/fastbreathing.mp3");
+    
+    timeTicking = loadSound("./data/timeTick.mp3");
+    
+    bgMusic = loadSound("./data/bgMusic.mp3");
+
     
 
 
@@ -32,10 +42,17 @@ function preload(){
 
 
 function setup(){
+    
+    timeSound = true;
+    
+    bgSound = true;
         
+    
     textFont("Futura");
     tree = createSprite(windowWidth/220, 100, 300,250);  //setting up sprites, their images
     crack = createSprite(windowWidth-windowWidth/6,300,300,250);
+    
+    limb = createSprite(windowWidth/5,400,300,250);
     
     toy = createSprite(windowWidth+windowWidth/12,500,300,250);
 
@@ -49,7 +66,9 @@ function setup(){
     
     tree.addImage("weak", treeImg);
     tree.addImage("strong", treeImgStrong);
-
+    
+    
+    limb.addImage("limb", limbImg);
     
     
     crack.addImage("crack", crackImg);
@@ -236,15 +255,26 @@ function setup(){
     slider = createSlider(0, 20, 3);
     slider.position(10, 50);
     slider.style('width', '100px');
-    
-    //SOUNDS
-    fastbreathing = loadSound("data/fastbreathing.mp3");
+
+    //timeTicking.loop();
+
+
+    finishedGame = false;
    
     
 }//setup
 
 
 function draw(){
+
+    
+    //bgMusic.playMode('restart');
+    
+    if(bgSound){
+        bgMusic.loop();
+        bgSound = false;
+    }
+    //bgMusic.loop();
     
     if (curLevelVal > 2){
         curLevelVal = 0;
@@ -259,7 +289,7 @@ function draw(){
     }*/
     
     if(gameover && keyWentDown(ENTER)){
-       
+       bgMusic.stop();
         newGame();
     }
 //    else if (gameover){
