@@ -1,14 +1,14 @@
 var gameover, unpaused, user, treeImg, treeImgStrong, hideImg;  //variables for gameplay
 
-var leo, tree, oldMan, bus, mop, limb; //Sprites
+var leo, tree, oldMan, bus, mop, limb, light; //Sprites
 var crack;
 
-var bgMusic; 
-var bgSound;
+var bgMusic, winMusic, sound1; 
+var bgSound, winSound;
 
 var finishedGame;
 
-var limbImg;
+var limbImg, lightImg;
 
 var objects; //group of object Sprites
 

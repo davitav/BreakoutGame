@@ -146,6 +146,8 @@ function stateIs(){
             cutScenePlacing()
             gameover=true;
             console.log("startImg");
+            winMusic.loop();
+            
 			break;
             
     	}   
@@ -165,6 +167,12 @@ function levelCase(textN){
         drawSprite(limb);      
     }
     
+    if(goodValue>8){   
+        drawSprite(light);
+        
+    }
+
+    
     fill(30);
     
     rect(width/2-160, 90, 320, 225);
@@ -174,7 +182,12 @@ function levelCase(textN){
     //timeTicking.playMode('restart');
 
     if(timeSound){
+        timeTicking.setVolume(0.8);
         timeTicking.loop();
+        
+        sound1.setVolume(0.02);
+        sound1.loop();
+        
         timeSound = false;
     }
         
@@ -216,6 +229,8 @@ function levelCase(textN){
 function triggerAnimation(animVal, emotion){
     runTheTimer = false;
     stopTimer = true;
+    
+    timeTicking.stop();
     
     
     if (emotion == 'good'){
@@ -311,7 +326,7 @@ function updatePosition(){
      if (keyDown(LEFT_ARROW) && unpaused){//user steer left
             leo.changeAnimation("left");
 
-            leo.position.x = leo.position.x - sliderVal;  //sliderVal
+            leo.position.x = leo.position.x - 2;  //sliderVal
             //leo.position.x = leo.position.x - sliderVal;  //sliderVal
          
 
@@ -321,7 +336,7 @@ function updatePosition(){
             //tint(0, 153, 204);  // Tint blue
             leo.changeAnimation("right");
             
-            leo.position.x = leo.position.x + sliderVal;    
+            leo.position.x = leo.position.x + 2;    
             
         }
 
@@ -431,8 +446,9 @@ function lifeDisplay(){
         
         setMood(1);
         
-        if(soundStarted == true && soundBefore == false){      
-            fastbreathing.loop();
+        if(soundStarted == true && soundBefore == false){
+            fastbreathing.setVolume(0.2);
+            //fastbreathing.loop();
             soundBefore = soundStarted;
             soundStarted = false;
 
@@ -621,6 +637,8 @@ function proceed(){
         
         leo.position.x = width/2;
         
+        timeSound = true;  //stops time ticking
+        
         
                 }
     
@@ -715,6 +733,10 @@ function soundReset(){
             
     timeSound = true;
     
+    winMusic.stop();
+    
+    sound1.stop();
+    
 }
 
 function keyPressed(){
@@ -800,6 +822,8 @@ function cutScenePlacing(){
             textSize(20);
             text("Congratulations, your journey is over. Leo slowly moves his hand across his face and realizes he has made it out. You helped Leo liberate himself.", width/2-250, 100, 500, 375);
             
+            text("Press r to restart.", width/2-250, 100, 500, 375);
+            
 			break;
             
     
@@ -810,11 +834,6 @@ function cutScenePlacing(){
 
 /*bugs
 
-timer
-
-sound
-
-website
 
 
 

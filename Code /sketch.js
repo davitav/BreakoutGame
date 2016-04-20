@@ -28,15 +28,19 @@ function preload(){
     
     bgOutside = loadImage("data/bgOutside.png");
     
+    lightImg = loadImage("data/light.png");
+    
     //SOUNDS
-    fastbreathing = loadSound("./data/fastbreathing.mp3");
+    fastbreathing = loadSound("data/fastbreathing.ogg");
     
-    timeTicking = loadSound("./data/timeTick.mp3");
+    timeTicking = loadSound("data/timeTickLoop01.ogg");
     
-    bgMusic = loadSound("./data/bgMusic.mp3");
+    bgMusic = loadSound("data/bgMusic.ogg");
+    
+    winMusic = loadSound("data/win.ogg");
 
+    sound1 = loadSound("data/bgSound1.ogg");
     
-
 
 }
 
@@ -52,17 +56,20 @@ function setup(){
     tree = createSprite(windowWidth/220, 100, 300,250);  //setting up sprites, their images
     crack = createSprite(windowWidth-windowWidth/6,300,300,250);
     
-    limb = createSprite(windowWidth/5,400,300,250);
+    limb = createSprite(windowWidth/4,500,300,250);
+    
+    light = createSprite(windowWidth-windowWidth/3,500,300,250);
+
     
     toy = createSprite(windowWidth+windowWidth/12,500,300,250);
 
     body = createSprite(1200,300,300,250);
     
-    branch = createSprite(width-width/12,400,300,250);
+    branch = createSprite(width/2,400,300,250);
     
     hide = createSprite(windowWidth/10, 500, 300,250);
     
-    
+    light.addImage("light", lightImg);
     
     tree.addImage("weak", treeImg);
     tree.addImage("strong", treeImgStrong);
@@ -267,10 +274,10 @@ function setup(){
 
 function draw(){
 
-    
     //bgMusic.playMode('restart');
     
     if(bgSound){
+        bgMusic.setVolume(0.3);
         bgMusic.loop();
         bgSound = false;
     }
