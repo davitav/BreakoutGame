@@ -182,7 +182,7 @@ function levelCase(textN){
     //timeTicking.playMode('restart');
 
     if(timeSound){
-        timeTicking.setVolume(0.8);
+        timeTicking.setVolume(0.5);
         timeTicking.loop();
         
         sound1.setVolume(0.02);
@@ -683,6 +683,7 @@ function startScreen(){
     
     curLevelVal = 0;
     goodValue = 1;
+    cutSceneValue = 1;
     
     console.log("Done with start screen");
     
@@ -829,16 +830,17 @@ function cutScenePlacing(){
 
 /*bugs
 
+ignore bad choice on the first level 
+
 contextualize beginning
 
-images
+sketches      
 
-heartbeat faster - animation change
-
+heartbeat faster - animation change          
 
 if game over: what does it mean/ some of the decisions you made for leo 
 weren't helpful, you should go back and give another try 
-how to restart from game over 
+how to restart from game over           
 
 */
 
