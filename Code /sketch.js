@@ -340,7 +340,7 @@ function draw(){
             
             background(0);
 
-            text("Game over. Some of the decisions you made for leo were not helpful, you should go back. Press R to restart.", width/2, height/2, 300, 200);
+            text("Game over. Some of the decisions you made for leo were not helpful. Press R to restart.", width/2, height/2, 300, 200);
         }
         
 
