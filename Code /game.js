@@ -167,7 +167,7 @@ function levelCase(textN){
         drawSprite(limb);      
     }
     
-    if(goodValue>8){   
+    if(goodValue>8 && goodValue<11){   
         drawSprite(light);
         
     }
@@ -326,7 +326,7 @@ function updatePosition(){
      if (keyDown(LEFT_ARROW) && unpaused){//user steer left
             leo.changeAnimation("left");
 
-            leo.position.x = leo.position.x - 2;  //sliderVal
+            leo.position.x = leo.position.x - sliderVal;  //sliderVal
             //leo.position.x = leo.position.x - sliderVal;  //sliderVal
          
 
@@ -336,7 +336,7 @@ function updatePosition(){
             //tint(0, 153, 204);  // Tint blue
             leo.changeAnimation("right");
             
-            leo.position.x = leo.position.x + 2;    
+            leo.position.x = leo.position.x + sliderVal;    
             
         }
 
@@ -350,19 +350,14 @@ function updatePosition(){
       if(keyWentDown(82)){   //restarting if prompted by user
             if (confirm('Are you sure you want to restart?')) {
             //restart
+                winMusic.stop();
                 timeTicking.stop();
 
                 gameover=true;
                 soundReset();
-               // goodValue=0;
-                //curLevelVal=0;
                 treeChange();
                 startScreen();
-               // leo.position.x = width/2;
-                
-                
-                //newGame()
-                
+                                
                 } else {
             // keep going!
                 }               
@@ -706,7 +701,7 @@ function treeChange(){
     }
     
     if(curLevelVal===0 && goodValue===9){
-        leo.changeAnimation("right");
+        //leo.changeAnimation("right");
         leo.position.x = leo.position.x - 1;
     }
 
@@ -822,7 +817,7 @@ function cutScenePlacing(){
             textSize(20);
             text("Congratulations, your journey is over. Leo slowly moves his hand across his face and realizes he has made it out. You helped Leo liberate himself.", width/2-250, 100, 500, 375);
             
-            text("Press r to restart.", width/2-250, 100, 500, 375);
+            text("Press r to restart the game.", width/2-250, 500, 500, 375);
             
 			break;
             
@@ -834,7 +829,11 @@ function cutScenePlacing(){
 
 /*bugs
 
+contextualize beginning
 
+images
+
+heartbeat faster - animation change
 
 
 if game over: what does it mean/ some of the decisions you made for leo 
