@@ -56,7 +56,7 @@ function setup(){
     tree = createSprite(windowWidth/220, 100, 300,250);  //setting up sprites, their images
     crack = createSprite(windowWidth-windowWidth/6,300,300,250);
     
-    limb = createSprite(windowWidth/4,500,300,250);
+    limb = createSprite(windowWidth/3,550,300,250);
     
     light = createSprite(windowWidth-windowWidth/3,500,300,250);
 
@@ -126,11 +126,11 @@ function setup(){
     /////////////////////
     goodItemsLevel1.add(tree);
     goodItemsLevel1.add(tree);
-    goodItemsLevel1.add(crack);
+    goodItemsLevel1.add(tree);
 
     badItemsLevel1.add(toy);
-    badItemsLevel1.add(crack);
-    badItemsLevel1.add(tree);
+    badItemsLevel1.add(toy);
+    badItemsLevel1.add(toy);
     
     ////////////////////////
     goodItemsLevel2.add(crack);

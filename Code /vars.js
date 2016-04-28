@@ -89,8 +89,8 @@ var curLevelVal = 0;  //variable that progresses us to the other choise on the s
 
 var levelOneQ = [
     "Your friend, the tree is withering. Press the left arrow key to go closer to the tree and water it before the timer runs out.",
-    "The tree gets more thirsty and calls you. But you also hear a scream from outside.",
-    "The tree revives and you hear another muffled scream."
+    "Your friend, the tree is withering. Press the left arrow key to go closer to the tree and water it before the timer runs out.",  //sound
+    "Your friend, the tree is withering. Press the left arrow key to go closer to the tree and water it before the timer runs out."
 ];
 
 var levelTwoQ = [
@@ -124,19 +124,19 @@ var levelSixQ = [
 ];
 
 var levelSevenQ = [
-    "You start seeing silhouettes in the crack. Keep looking closer or water the tree?",
+    "You start seeing silhouettes in the crack. Keep looking closer or water the tree?",  //sketch
     "The tree is fine. In the meantime you start hearing alarming human sounds.",
     "The tree is strangling you with its hug. It wants to be watered. Screams are still going on. Do you peek out or water the tree?"
 ];
 
 var levelEightQ = [
-    "You can now see. You see an old man thrashing his limbs. After a closer look, you see a bus approaching the man - his foot is stuck. He might die! Meanwhile the tree wants you to water it. Will you water the tree or try to expand the crack?",
+    "You can now see. You see an old man thrashing his limbs. After a closer look, you see a bus approaching the man - his foot is stuck. He might die! Meanwhile the tree wants you to water it. Will you water the tree or try to expand the crack?",  //sketch 
     "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable. Water the tree or expand the crack?",
     "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable. Water the tree or expand the crack?"
 ];
 
 var levelNineQ = [
-    "You expand the crack. The tree grabs you and starts pulling you forcefully. The old man might die. Go to the crack if you want to rip the tree branch or go to the tree to water it.",
+    "You expand the crack and light shines through. The tree is very thirsty, so it grabs you and starts pulling you forcefully. The old man might die. Go to the crack if you want to rip the tree branch or go to the tree to water it.",
     "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable. What now?",
     "The tree is relieved. It may need some pruning. Meanwhile the man's sounds become unbearable. What now?"
 ];
@@ -154,7 +154,7 @@ var levelElevenQ = [
 ];
 
 var levelTwelveQ = [
-    "Leo slowly moves his hand across his face and realizes he has made it out. Congratulations on finishing your journey. Please press r to restart."
+    "Leo slowly moves his hand across his face and realizes he has made it out. Congratulations on finishing your journey. You helped liberate Leo. Please press r to restart."
 ];
 
 

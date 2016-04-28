@@ -65,7 +65,11 @@ function stateIs(){
 		case 1:
             bg1();
 
-            levelCase(levelOneQ[curLevelVal]);         
+            levelCase(levelOneQ[curLevelVal]); 
+            
+            if(leo.position.x > 800){
+                leo.position.x = 800;
+            }
 			break; 
                    
 		case 2:
@@ -164,7 +168,7 @@ function levelCase(textN){
     drawSprite(badItemsWorld1[goodValue-1][curLevelVal]);
     
     if(goodValue===10){
-        drawSprite(limb);      
+        drawSprite();      
     }
     
     if(goodValue>8 && goodValue<11){   
@@ -182,7 +186,7 @@ function levelCase(textN){
     //timeTicking.playMode('restart');
 
     if(timeSound){
-        timeTicking.setVolume(0.5);
+        timeTicking.setVolume(0.15);
         timeTicking.loop();
         
         sound1.setVolume(0.02);
@@ -245,7 +249,7 @@ function triggerAnimation(animVal, emotion){
         textSize(26);
         text("+30", width/2, 100);
         fill(0);
-        leo.position.x = width+500;
+        leo.position.x = -5000;
 
         showingAnimation = true;
         lifeDisplay();
@@ -342,7 +346,13 @@ function updatePosition(){
 
     
     else{
+        if (life < 80){
+            leo.changeAnimation("depressed");
+        }
+        else{
             leo.changeAnimation("still");
+        }
+
 
     }
     
@@ -403,12 +413,9 @@ function lifeDisplay(){
         
         rect(width/2-100, 30, life, 40);
         
-        leo.changeAnimation("still");
+        //leo.changeAnimation("still");
         
         movementAnim();
-
-
-        
         
         fastbreathing.stop();
   
@@ -426,18 +433,16 @@ function lifeDisplay(){
         fill(250, 80, 70); 
         text("Depressed", width/2, 20);
         
-        leo.changeAnimation("depressed");
+       // leo.changeAnimation("depressed");
         
         //updatePosition()
         
-        movementAnim();
-
+        movementAnim(); 
         
+        fill(250, 80, 70); 
+
         rect(width/2-100, 30, life, 40);  
         soundStarted = true;
-        
-      
-
         
         setMood(1);
         
@@ -447,10 +452,14 @@ function lifeDisplay(){
             soundBefore = soundStarted;
             soundStarted = false;
 
-        }    
+        }
+        
+        fill(250, 80, 70); 
+
 
     }
     
+
     rect(width/2-100, 30, life, 40);
 
 }
@@ -516,7 +525,7 @@ function newGame() {//resetting values for new game
 
     leo.addAnimation("still", "data/breathRelaxed/breathR_000.png", "data/breathRelaxed/breathR_023.png"); 
     
-    leo.addAnimation("depressed", "data/breathDepressed/breathD_000.png", "data/breathDepressed/breathD_014.png"); 
+    leo.addAnimation("depressed", "data/breathDepressed/breathD_000.png", "data/breathDepressed/breathD_008.png"); 
 
 
 
@@ -614,6 +623,8 @@ function transitionCut(){
 
 
 function proceed(){
+    //timeTicking.loop();
+
     
     
     
@@ -649,6 +660,8 @@ function proceed(){
         showingBadAnimation = false;
         
         //console.log("badanim: "+showingBadAnimation);
+        timeSound = true;  //stops time ticking
+
     }
     
     if (showingTimeAnimation){
@@ -661,6 +674,8 @@ function proceed(){
         leo.position.x = width/2;
         leo.position.y = 300;
         
+        timeSound = true;  //stops time ticking
+
         treeChange();
 
 
@@ -705,6 +720,8 @@ function treeChange(){
         //leo.changeAnimation("right");
         leo.position.x = leo.position.x - 1;
     }
+    
+    
 
     
 }
@@ -821,26 +838,38 @@ function cutScenePlacing(){
             text("Press r to restart the game.", width/2-250, 500, 500, 375);
             
 			break;
+                    
+        }
+        if(curLevelVal===0 && goodValue===6){
+        //leo.changeAnimation("right");
+            image(lightImg, width/2, height/2); 
+            console.log("Image should be here");
+        }
             
+        if(curLevelVal===0 && goodValue===7){
+        //leo.changeAnimation("right");
+            image(lightImg, width/2, height/2);    
+        }
     
 }
-    
-}
 
 
-/*bugs
+/*bugs  
 
-ignore bad choice on the first level 
+flyers
 
-contextualize beginning
+volume levels 
 
-sketches      
+HOW TO set browser in kiosk mode. not allow people to exit, do other things, etc 
 
-heartbeat faster - animation change          
+sketches 
 
-if game over: what does it mean/ some of the decisions you made for leo 
-weren't helpful, you should go back and give another try 
-how to restart from game over           
+border on the first level
+
+
+animations are fixed
+boundary on first level set
+
 
 */
 
