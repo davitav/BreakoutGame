@@ -150,6 +150,7 @@ function stateIs(){
             cutScenePlacing()
             gameover=true;
             console.log("startImg");
+            bgMusic.stop();
             winMusic.loop();
             
 			break;
@@ -330,7 +331,7 @@ function updatePosition(){
      if (keyDown(LEFT_ARROW) && unpaused){//user steer left
             leo.changeAnimation("left");
 
-            leo.position.x = leo.position.x - sliderVal;  //sliderVal
+            leo.position.x = leo.position.x - 3;  //sliderVal
             //leo.position.x = leo.position.x - sliderVal;  //sliderVal
          
 
@@ -340,7 +341,7 @@ function updatePosition(){
             //tint(0, 153, 204);  // Tint blue
             leo.changeAnimation("right");
             
-            leo.position.x = leo.position.x + sliderVal;    
+            leo.position.x = leo.position.x + 3;    
             
         }
 
@@ -390,40 +391,26 @@ function lifeDisplay(){
     if(80<=life && life<=120){
         
         fill(255, 175, 10);
-        text("O.K.", width/2, 20);
+        text("O.K.", width/2, 25);
         
         rect(width/2-100, 30, life, 40);
-        
-    
-        
+         
         fastbreathing.stop();
 
-        /*if(soundStarted == true && soundBefore == true){
-            soundBefore = false;
-            console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore);
-            console.log("Life: "+life);
-        }*/
 
     }
     
     else if(life>=80){
         
         fill(0, 230, 70);
-        text("Happy", width/2, 20);
+        text("Happy", width/2, 25);
         
         rect(width/2-100, 30, life, 40);
-        
-        //leo.changeAnimation("still");
-        
+              
         movementAnim();
         
         fastbreathing.stop();
-  
-        /*if(soundStarted == true && soundBefore == true){
-            soundBefore = false;
-            console.log("soundStarted: "+soundStarted, "soundBefore: "+soundBefore);
-            console.log("Life: "+life);
-        }*/
+
         
     }
     
@@ -431,11 +418,7 @@ function lifeDisplay(){
     else if(life<80){  
                   
         fill(250, 80, 70); 
-        text("Depressed", width/2, 20);
-        
-       // leo.changeAnimation("depressed");
-        
-        //updatePosition()
+        text("Depressed", width/2, 25);
         
         movementAnim(); 
         
@@ -447,8 +430,8 @@ function lifeDisplay(){
         setMood(1);
         
         if(soundStarted == true && soundBefore == false){
-            fastbreathing.setVolume(0.2);
-            //fastbreathing.loop();
+            fastbreathing.setVolume(0.05);
+            fastbreathing.loop();
             soundBefore = soundStarted;
             soundStarted = false;
 
@@ -615,7 +598,6 @@ function transitionCut(){
                 }
                 }
     
-    //console.log("Mouse was pressed!");
     if(keyDown(32)){
         proceed();
 }
@@ -623,11 +605,7 @@ function transitionCut(){
 
 
 function proceed(){
-    //timeTicking.loop();
-
-    
-    
-    
+  
     if (showingAnimation){
         //proceed to next level
         //console.log("Moving on to next level.");
@@ -643,10 +621,9 @@ function proceed(){
         
         leo.position.x = width/2;
         
-        timeSound = true;  //stops time ticking
+        timeSound = true;  //stops time ticking  
         
-        
-                }
+    }
     
     if(showingBadAnimation){
         
@@ -687,20 +664,36 @@ function proceed(){
 function startScreen(){
     
     image(startImg, 0, 0, windowWidth, windowHeight);
-    fill(255);
+    
+    noStroke();
+    
+    fill(255, 255, 255, 85);
+    
+
+    
+    rect(width/2-250, 240, 500, 300);
+    
+    fill(0);
     textAlign(CENTER);
     textSize(24);
-    text("Breakout, the game", windowWidth/2, 35);
+    text("Breakout, the game", windowWidth/2, 265);
     
-    textSize(18);
-    text("Press Enter to start", windowWidth/2, windowHeight/2+200);
-    text("Press R to restart", windowWidth/2, windowHeight/2+250);
+    
+    
+    text("Help Leo make choices. In response to a question, use arrows to move in the direction of a choice. Make the choices before the timer runs out!",  width/2-250, 300, 500, 375);
+
+    
+    textSize(30);
+    text("Press Enter to start", windowWidth/2, windowHeight/2+120);
+    text("Press R to restart", windowWidth/2, windowHeight/2+160);
     
     curLevelVal = 0;
     goodValue = 1;
     cutSceneValue = 1;
     
     console.log("Done with start screen");
+    
+    fill(255);
     
 }
 
@@ -835,36 +828,27 @@ function cutScenePlacing(){
             textSize(20);
             text("Congratulations, your journey is over. Leo slowly moves his hand across his face and realizes he has made it out. You helped Leo liberate himself.", width/2-250, 100, 500, 375);
             
-            text("Press r to restart the game.", width/2-250, 500, 500, 375);
+            text("Press R to restart the game.", width/2-250, 500, 500, 375);
             
 			break;
                     
         }
+    
+    /*
         if(curLevelVal===0 && goodValue===6){
         //leo.changeAnimation("right");
             image(lightImg, width/2, height/2); 
-            console.log("Image should be here");
         }
             
         if(curLevelVal===0 && goodValue===7){
         //leo.changeAnimation("right");
             image(lightImg, width/2, height/2);    
         }
-    
+    */
 }
 
 
 /*bugs  
-
-flyers
-
-volume levels 
-
-HOW TO set browser in kiosk mode. not allow people to exit, do other things, etc 
-
-sketches 
-
-border on the first level
 
 
 animations are fixed

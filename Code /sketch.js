@@ -259,9 +259,9 @@ function setup(){
 
     itemsWorld1 = [mop, crack];  
 
-    slider = createSlider(0, 20, 3);
+    /*slider = createSlider(0, 20, 3);
     slider.position(10, 50);
-    slider.style('width', '100px');
+    slider.style('width', '100px');*/
 
     //timeTicking.loop();
 
@@ -287,7 +287,7 @@ function draw(){
         curLevelVal = 0;
     }
     
-    sliderVal = slider.value();
+    //sliderVal = slider.value();
     
     /*if(gameover){
         image(endImg, 0, 0);
